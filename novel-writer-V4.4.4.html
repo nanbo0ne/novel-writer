@@ -275,6 +275,29 @@ select{cursor:pointer;appearance:auto}
   vertical-align:text-bottom;margin-left:2px;
 }
 
+/* ==================== 承接与记忆整理 ==================== */
+#contextProgressModal .modal{max-width:860px;width:92vw;max-height:88vh;overflow:hidden;display:flex;flex-direction:column}
+.context-progress-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;min-height:0;overflow-y:auto;padding:2px}
+.context-progress-panel{border:1px solid var(--border);border-radius:6px;background:var(--bg);padding:12px;min-width:0}
+.context-progress-head{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-bottom:8px}
+.context-progress-status{font-size:.72rem;color:var(--text2);white-space:nowrap}
+.context-progress-stage{font-size:.78rem;color:var(--text2);margin-bottom:6px}
+.context-progress-reasoning,.context-progress-output{font-family:var(--mono);font-size:.76rem;line-height:1.55;white-space:pre-wrap;word-break:break-word;max-height:20vh;overflow:auto;border:1px solid var(--border);border-radius:4px;padding:8px;background:var(--surface)}
+.context-progress-reasoning{color:var(--text2);margin-bottom:7px}
+.context-progress-empty{color:var(--text3);font-family:var(--font)}
+#contextProgressButton[data-state="running"]{color:var(--accent);border-color:var(--accent)}
+#contextProgressButton[data-state="error"]{color:var(--danger);border-color:var(--danger)}
+.settings-danger-zone{margin-top:14px;padding-top:12px;border-top:1px solid var(--border)}
+.btn-danger{background:var(--danger);border-color:var(--danger);color:#fff}
+.btn-danger:hover{filter:brightness(.94)}
+@media(max-width:760px){
+  .context-progress-grid{grid-template-columns:1fr}
+  #contextProgressModal .modal{width:96vw;padding:18px 14px}
+  .context-progress-reasoning,.context-progress-output{max-height:18vh}
+  .status-bar{flex-wrap:wrap;gap:6px}
+  .status-bar>span:last-child{margin-left:0!important;max-width:100%;flex-wrap:wrap}
+}
+
 /* ==================== 追加标记指示器 ==================== */
 .append-indicator{
   display:none;align-items:center;gap:8px;
@@ -628,12 +651,13 @@ select{cursor:pointer;appearance:auto}
 .writer-toolbar-main .btn,.writer-toolbar-main .split-btn-group{flex:0 0 auto}
 .writer-toolbar .auto-toggle{flex:0 0 90px;white-space:nowrap}
 .writer-toolbar .auto-toggle .toggle-label{display:inline-block;white-space:nowrap}
-.writer-toggle-group{display:flex;align-items:center;gap:10px;flex:0 0 auto;white-space:nowrap}
-#autoContLabelText,#contextLabel,#continuityLabel{width:4.7em}
+.writer-toggle-group{display:flex;align-items:center;gap:10px;flex:0 1 auto;white-space:nowrap;flex-wrap:wrap}
+#autoContLabelText,#contextLabel,#continuityLabel,#memoryToggleLabelText{width:4.7em}
 #statsDisplay{margin-left:auto;flex:1 1 auto;min-width:0;justify-content:flex-end;overflow:hidden;text-overflow:ellipsis}
 @media(max-width:760px){
   .writer-toolbar-main{overflow-x:auto;padding-bottom:2px}
   .writer-toolbar-options{align-items:flex-start;flex-direction:column;gap:8px}
+  .writer-toggle-group{width:100%;white-space:normal}
   #statsDisplay{margin-left:0;justify-content:flex-start;width:100%;font-size:.72rem}
 }
 #chapterEditor{
@@ -1312,6 +1336,12 @@ body.debug-mode .debug-only{display:inline-flex!important}
               <span class="toggle-track"></span>
               <span class="toggle-label" id="continuityLabel" style="font-size:.72rem">🔗 连贯</span>
             </label>
+            <label class="auto-toggle" id="memoryToggleLabel" title="控制章节生成后的自动记忆整理，不影响已有记忆读取" style="margin:0">
+              <input type="checkbox" id="memoryToggle">
+              <span class="toggle-track"></span>
+              <span class="toggle-label" id="memoryToggleLabelText" style="font-size:.72rem">🧠 记忆</span>
+            </label>
+            <button class="btn btn-sm btn-ghost" id="contextProgressButton" type="button" onclick="openContextProgressModal()" title="查看承接与记忆整理进度" style="font-size:.72rem">📡 整理进度</button>
           </div>
           <span id="statsDisplay" style="font-size:.75rem;color:var(--text2);white-space:nowrap;display:flex;align-items:center;gap:4px" title="本章字数 / 全文字数 · 本次tokens / 累计tokens · 缓存率">
             <span id="chWordCount" class="flip-counter"></span><span style="color:var(--border)">/</span><span id="totalWordCount" class="flip-counter"></span><span>字</span>
@@ -1516,7 +1546,7 @@ body.debug-mode .debug-only{display:inline-flex!important}
               <span class="toggle-track"></span>
             </label>
             <label class="auto-gen-switch">
-              <span><span class="toggle-label">记忆功能</span><span class="toggle-sub">写作时引用并更新长期记忆</span></span>
+              <span><span class="toggle-label">自动记忆</span><span class="toggle-sub">章节完成后整理长期记忆和摘要卡</span></span>
               <input type="checkbox" id="agMemoryUpdate" checked>
               <span class="toggle-track"></span>
             </label>
@@ -1787,6 +1817,30 @@ body.debug-mode .debug-only{display:inline-flex!important}
   </div>
 </div>
 
+<!-- ====== 承接与记忆整理进度弹窗 ====== -->
+<div class="modal-overlay" id="contextProgressModal" onclick="closeContextProgressModal(event)">
+  <div class="modal" onclick="event.stopPropagation()">
+    <button class="modal-close" type="button" onclick="closeContextProgressModal()">✕</button>
+    <h2 style="margin-bottom:4px">📡 承接与记忆整理</h2>
+    <p style="font-size:.82rem;color:var(--text2);margin-bottom:10px">正文生成完成后，后台会继续整理下一章承接信息和长期记忆。关闭此窗口不会中止整理。</p>
+    <div class="context-progress-grid">
+      <section class="context-progress-panel">
+        <div class="context-progress-head"><strong>🔗 承接信息</strong><span class="context-progress-status" id="bridgeProgressStatus">未开始</span></div>
+        <div class="context-progress-stage" id="bridgeProgressStage">等待任务</div>
+        <div class="context-progress-reasoning" id="bridgeProgressReasoning"><span class="context-progress-empty">暂无思考内容</span></div>
+        <div class="context-progress-output" id="bridgeProgressOutput"><span class="context-progress-empty">暂无输出</span></div>
+      </section>
+      <section class="context-progress-panel">
+        <div class="context-progress-head"><strong>🧠 记忆整理</strong><span class="context-progress-status" id="memoryProgressStatus">未开始</span></div>
+        <div class="context-progress-stage" id="memoryProgressStage">等待任务</div>
+        <div class="context-progress-reasoning" id="memoryProgressReasoning"><span class="context-progress-empty">暂无思考内容</span></div>
+        <div class="context-progress-output" id="memoryProgressOutput"><span class="context-progress-empty">暂无输出</span></div>
+      </section>
+    </div>
+    <div class="modal-actions"><button class="btn btn-danger" type="button" id="stopContextProgressButton" onclick="stopContextProgressTasks()" style="display:none">⏹ 终止整理</button><button class="btn" type="button" onclick="closeContextProgressModal()">关闭</button></div>
+  </div>
+</div>
+
 <!-- ====== 设置弹窗 ====== -->
 <div class="modal-overlay" id="settingsModal">
   <div class="modal">
@@ -1927,6 +1981,21 @@ body.debug-mode .debug-only{display:inline-flex!important}
       <button class="btn" onclick="saveSettings(); closeSettings()">完成</button>
       <button class="btn btn-primary" onclick="saveSettings()">💾 保存配置</button>
     </div>
+    <div class="settings-danger-zone">
+      <strong style="color:var(--danger)">危险操作</strong>
+      <p style="font-size:.78rem;color:var(--text2);margin:5px 0 8px">恢复默认设置会删除当前来源保存的项目、章节、API 配置、提示词自定义、注入、对话、记忆、Agent 历史、快照和日志。</p>
+      <button class="btn btn-danger" type="button" onclick="openFactoryResetWarning()">🗑️ 恢复默认设置</button>
+    </div>
+  </div>
+</div>
+
+<!-- ====== 恢复默认设置确认弹窗 ====== -->
+<div class="modal-overlay" id="factoryResetModal" onclick="closeFactoryResetWarning(event)">
+  <div class="modal" style="max-width:540px" onclick="event.stopPropagation()">
+    <button class="modal-close" type="button" onclick="closeFactoryResetWarning()">✕</button>
+    <h2 style="color:var(--danger)">⚠️ 确认恢复默认设置</h2>
+    <div id="factoryResetDescription" style="font-size:.84rem;line-height:1.7;color:var(--text2)"></div>
+    <div class="modal-actions"><button class="btn" type="button" onclick="closeFactoryResetWarning()">取消</button><button class="btn btn-danger" type="button" id="factoryResetConfirmButton" onclick="confirmFactoryReset()">继续确认</button></div>
   </div>
 </div>
 
@@ -2674,8 +2743,174 @@ async function loadState(){
 }
 
 function saveState(){
+  if(factoryResetInProgress) return Promise.resolve();
   Store.saving = Store.save();
   return Store.saving;
+}
+
+// ==================== 后台承接与记忆整理 ====================
+const contextProgress = {
+  bridge:{status:'idle',stage:'等待任务',reasoning:'',output:'',controller:null},
+  memory:{status:'idle',stage:'等待任务',reasoning:'',output:'',controller:null},
+};
+
+function contextProgressLabel(status){
+  return ({idle:'未开始',waiting:'等待',running:'进行中',completed:'已完成',fallback:'已回退',error:'失败',stopped:'已终止'})[status] || status;
+}
+
+function renderContextProgress(){
+  ['bridge','memory'].forEach(kind => {
+    const item = contextProgress[kind];
+    const prefix = kind === 'bridge' ? 'bridge' : 'memory';
+    const status = document.getElementById(prefix + 'ProgressStatus');
+    const stage = document.getElementById(prefix + 'ProgressStage');
+    const reasoning = document.getElementById(prefix + 'ProgressReasoning');
+    const output = document.getElementById(prefix + 'ProgressOutput');
+    if(status) status.textContent = contextProgressLabel(item.status);
+    if(stage) stage.textContent = item.stage || '等待任务';
+    if(reasoning) reasoning.textContent = item.reasoning || '暂无思考内容';
+    if(output){
+      output.textContent = item.output || '暂无输出';
+      output.scrollTop = output.scrollHeight;
+    }
+  });
+  const values = Object.values(contextProgress);
+  const running = values.some(item => ['waiting','running'].includes(item.status));
+  const failed = values.some(item => item.status === 'error');
+  const button = document.getElementById('contextProgressButton');
+  if(button){
+    button.dataset.state = running ? 'running' : failed ? 'error' : 'done';
+    button.textContent = running ? '📡 整理中' : failed ? '⚠️ 整理异常' : '📡 整理进度';
+  }
+  const stop = document.getElementById('stopContextProgressButton');
+  if(stop) stop.style.display = running ? '' : 'none';
+}
+
+function beginContextProgress(kind, stage, options = {}){
+  const item = contextProgress[kind];
+  if(!item) return null;
+  if(item.controller) try{ item.controller.abort(); }catch(e){}
+  const controller = new AbortController();
+  item.status = 'running';
+  item.stage = stage;
+  item.reasoning = '';
+  item.output = '';
+  item.controller = controller;
+  if(options.runId !== undefined) registerAutoGenController(controller, options.runId);
+  renderContextProgress();
+  document.getElementById('contextProgressModal')?.classList.add('show');
+  return controller;
+}
+
+function updateContextProgress(kind, patch = {}){
+  const item = contextProgress[kind];
+  if(!item) return;
+  Object.assign(item, patch);
+  renderContextProgress();
+}
+
+function appendContextProgress(kind, field, chunk){
+  const item = contextProgress[kind];
+  if(!item || !chunk) return;
+  item[field] = (item[field] || '') + chunk;
+  renderContextProgress();
+}
+
+function finishContextProgress(kind, status, stage, controller){
+  const item = contextProgress[kind];
+  if(!item || (controller && item.controller !== controller)) return;
+  item.status = status;
+  item.stage = stage;
+  item.controller = null;
+  unregisterAutoGenController(controller);
+  renderContextProgress();
+}
+
+function openContextProgressModal(){
+  renderContextProgress();
+  document.getElementById('contextProgressModal')?.classList.add('show');
+}
+
+function closeContextProgressModal(event){
+  if(event && event.target !== event.currentTarget) return;
+  document.getElementById('contextProgressModal')?.classList.remove('show');
+}
+
+function stopContextProgressTasks(options = {}){
+  let stopped = false;
+  Object.values(contextProgress).forEach(item => {
+    if(item.controller){ stopped = true; try{ item.controller.abort(); }catch(e){} }
+  });
+  if(stopped && !options.silent) toast('已终止尚未完成的承接与记忆整理');
+}
+
+function setAutoUpdateMemory(enabled, options = {}){
+  state.autoUpdateMemory = enabled !== false;
+  const writerToggle = document.getElementById('memoryToggle');
+  const autoGenToggle = document.getElementById('agMemoryUpdate');
+  if(writerToggle) writerToggle.checked = state.autoUpdateMemory;
+  if(autoGenToggle) autoGenToggle.checked = state.autoUpdateMemory;
+  const label = document.getElementById('memoryToggleLabelText');
+  if(label) label.textContent = state.autoUpdateMemory ? '🧠 记忆' : '🧠 记忆关';
+  if(options.save !== false) saveState();
+}
+
+let factoryResetArmed = false;
+let factoryResetInProgress = false;
+function openFactoryResetWarning(){
+  factoryResetArmed = false;
+  const desc = document.getElementById('factoryResetDescription');
+  if(desc) desc.innerHTML = '<p>此操作将永久删除当前网页来源保存的全部小说助手数据，包括：</p><p>项目、大纲、章节、API Key、模型配置、提示词自定义、注入配置、对话、记忆、Agent 修改记录、快照和调试日志。</p><p><strong>本地文件和 GitHub Pages 数据彼此独立；不会清除同源其他应用的数据，也不会修改 HTML 内置内容。</strong></p>';
+  const button = document.getElementById('factoryResetConfirmButton');
+  if(button) button.textContent = '继续确认';
+  document.getElementById('factoryResetModal')?.classList.add('show');
+}
+
+function closeFactoryResetWarning(event){
+  if(event && event.target !== event.currentTarget) return;
+  factoryResetArmed = false;
+  document.getElementById('factoryResetModal')?.classList.remove('show');
+}
+
+function deleteNovelWriterDatabase(){
+  return new Promise((resolve, reject) => {
+    const request = indexedDB.deleteDatabase(IDB_NAME);
+    request.onsuccess = () => resolve();
+    request.onerror = () => reject(request.error || new Error('数据库删除失败'));
+    request.onblocked = () => reject(new Error('数据库仍被其他页面占用，请关闭其他小说助手页面后重试'));
+  });
+}
+
+async function confirmFactoryReset(){
+  if(!factoryResetArmed){
+    factoryResetArmed = true;
+    const button = document.getElementById('factoryResetConfirmButton');
+    if(button) button.textContent = '确认清空并重载';
+    toast('请再次点击红色按钮确认');
+    return;
+  }
+  const button = document.getElementById('factoryResetConfirmButton');
+  if(button){ button.disabled = true; button.textContent = '正在清空…'; }
+  try{
+    factoryResetInProgress = true;
+    if(state.abortController) state.abortController.abort();
+    _autoGenStopped = true;
+    _autoGenRunId++;
+    _autoGenAbortControllers.forEach(controller => { try{ controller.abort(); }catch(e){} });
+    _autoGenAbortControllers.clear();
+    stopContextProgressTasks({silent:true});
+    editorAgentAbortController?.abort();
+    if(Store.saving) await Promise.resolve(Store.saving).catch(() => {});
+    if(DB.db){ DB.db.close(); DB.db = null; }
+    localStorage.removeItem(STORAGE_KEY);
+    localStorage.removeItem(MIGRATION_KEY);
+    await deleteNovelWriterDatabase();
+    location.reload();
+  }catch(error){
+    factoryResetInProgress = false;
+    toast('恢复默认失败：' + (error.message || error));
+    if(button){ button.disabled = false; button.textContent = '确认清空并重载'; }
+  }
 }
 
 const SNAPSHOT_LIMIT = 5;
@@ -4127,6 +4362,8 @@ function setWriterToggleLabels(){
   const continuityLabel = document.getElementById('continuityLabel');
   const continuityChecked = document.getElementById('continuityToggle')?.checked ?? state.chapterContinuity !== false;
   if(continuityLabel) continuityLabel.textContent = continuityChecked ? '🔗 连贯' : '🔗 连贯关';
+  const memoryLabel = document.getElementById('memoryToggleLabelText');
+  if(memoryLabel) memoryLabel.textContent = state.autoUpdateMemory !== false ? '🧠 记忆' : '🧠 记忆关';
 }
 
 // 点击空白关闭下拉
@@ -5626,6 +5863,7 @@ function makeAutoGenRequestOptions(options = {}, baseOptions = {}){
 
 async function apiStreamChatForAutoGen(messages, onChunk, options = {}, baseOptions = {}){
   const {requestOptions, controller} = makeAutoGenRequestOptions(options, baseOptions);
+  if(options.signal) requestOptions.signal = options.signal;
   try{
     return await apiStreamChat(messages, onChunk, requestOptions);
   }finally{
@@ -5874,7 +6112,7 @@ async function startAutoGen(){
   state.contextFull = document.getElementById('agFullContext').checked;
   state.chapterContinuity = document.getElementById('agContinuity')?.checked !== false;
   state.autoGenerateNotes = document.getElementById('agAutoNotes')?.checked !== false;
-  state.autoUpdateMemory = document.getElementById('agMemoryUpdate')?.checked !== false;
+  setAutoUpdateMemory(document.getElementById('agMemoryUpdate')?.checked !== false, {save:false});
   state.selectedLength = document.querySelector('#autoGenPreModal input[name="agAutoLengthMode"]:checked')?.value || state.selectedLength || 'medium';
   const clearOutline = document.getElementById('agClearOutline').checked;
   const clearChapters = document.getElementById('agClearChapters').checked;
@@ -7124,6 +7362,7 @@ async function updateChapterBridge(chapterNum, fullText, options = {}){
   if(options.runId !== undefined) assertAutoGenRunActive(options.runId);
   const cleanText = sanitizeGeneratedText(fullText || '');
   if(!cleanText.trim()) return null;
+  const progressController = options.contextProgress === false ? null : beginContextProgress('bridge', `整理第 ${chapterNum} 章 → 第 ${Number(options.targetChapter || (Number(chapterNum) + 1))} 章承接`, options);
   const targetChapter = Number(options.targetChapter || (Number(chapterNum) + 1));
   const contentHash = chapterContentHash(cleanText);
   const sourceHash = getContinuitySourceHash(targetChapter);
@@ -7147,8 +7386,14 @@ async function updateChapterBridge(chapterNum, fullText, options = {}){
     if(Number(state.currentChapter) === Number(targetChapter)) renderContinuityCachePanel();
     return bridge;
   };
-  if(chapterData?.bridge?.contentHash === contentHash && chapterData.bridge?.targetChapter === targetChapter && chapterData.bridge?.sourceHash === sourceHash) return chapterData.bridge;
-  if(!state.baseURL || !state.model) return saveBridge(fallback);
+  if(chapterData?.bridge?.contentHash === contentHash && chapterData.bridge?.targetChapter === targetChapter && chapterData.bridge?.sourceHash === sourceHash){
+    if(progressController) finishContextProgress('bridge','completed','承接缓存已是最新',progressController);
+    return chapterData.bridge;
+  }
+  if(!state.baseURL || !state.model){
+    if(progressController){ updateContextProgress('bridge',{output:'未配置可用模型，已使用本地承接摘要。'}); finishContextProgress('bridge','fallback','本地回退完成',progressController); }
+    return saveBridge(fallback);
+  }
 
   const points = (outlineCh?.plotPoints || []).map((pp, i) => `${i + 1}. ${pp.desc || pp.description || pp}`).join('\n');
   const userContent = [
@@ -7162,13 +7407,16 @@ async function updateChapterBridge(chapterNum, fullText, options = {}){
     `本章结尾片段：\n${cleanText.slice(-3000)}`
   ].filter(Boolean).join('\n\n');
 
-  const {requestOptions, controller} = makeAutoGenRequestOptions(options, {route:'memory', temperature:0.2});
-  if(options.signal) requestOptions.signal = options.signal;
+  const requestOptions = {route:'memory', temperature:0.2};
+  const controller = progressController || (options.runId !== undefined ? new AbortController() : null);
+  if(controller){ requestOptions.signal = controller.signal; if(!progressController && options.runId !== undefined) registerAutoGenController(controller, options.runId); }
+  else if(options.signal) requestOptions.signal = options.signal;
+  requestOptions.onReasoning = chunk => appendContextProgress('bridge','reasoning',chunk);
   try{
     const result = await apiStreamChat([
       {role:'system', content:'你是小说连贯性整理助手。根据刚完成的一章，提取给下一章承接使用的信息。只返回JSON对象，不要Markdown、解释或代码块。JSON字段：endingState, unresolvedThreads, characterContinuity, nextChapterLead, toneCarryover。'},
       {role:'user', content:userContent},
-    ], null, requestOptions);
+    ], chunk => appendContextProgress('bridge','output',chunk), requestOptions);
     if(options.runId !== undefined) assertAutoGenRunActive(options.runId);
     const parsed = extractJSONObject(result);
     if(parsed && typeof parsed === 'object' && !Array.isArray(parsed)){
@@ -7177,15 +7425,23 @@ async function updateChapterBridge(chapterNum, fullText, options = {}){
       parsed.title = outlineCh?.title || '';
       parsed.updatedAt = new Date().toISOString();
       parsed.source = 'ai';
-      return saveBridge(parsed);
+      const saved = saveBridge(parsed);
+      if(progressController) finishContextProgress('bridge','completed','承接信息整理完成',progressController);
+      return saved;
     }
   }catch(e){
-    if(e.name === 'AbortError') throw e;
+    if(e.name === 'AbortError'){
+      if(progressController){ finishContextProgress('bridge','stopped','承接整理已终止',progressController); return null; }
+      throw e;
+    }
+    if(progressController) updateContextProgress('bridge',{status:'error',stage:'AI 整理失败，正在使用本地回退',output:(contextProgress.bridge.output ? contextProgress.bridge.output + '\n\n' : '') + String(e.message || e)});
   }finally{
-    unregisterAutoGenController(controller);
+    if(!progressController) unregisterAutoGenController(controller);
   }
   if(options.runId !== undefined) assertAutoGenRunActive(options.runId);
-  return saveBridge(fallback);
+  const saved = saveBridge(fallback);
+  if(progressController) finishContextProgress('bridge','fallback','AI 输出不可用，已使用本地回退',progressController);
+  return saved;
 }
 
 function resetThinkingIndicator(){
@@ -7650,7 +7906,24 @@ async function updateCurrentChapterMemoryManual(){
 }
 
 function shouldUseMemoryForCurrentTask(){
-  return !state.autoGenerating || state.autoUpdateMemory !== false;
+  return true;
+}
+
+function shouldAutoUpdateMemory(){
+  return state.autoUpdateMemory !== false;
+}
+
+function schedulePostGenerationContext(chapterNum, text, options = {}){
+  const ch = Number(chapterNum);
+  const cleanText = String(text || '');
+  if(!ch || !cleanText.trim() || state.autoGenerating) return {memoryPromise:null,bridgePromise:null};
+  const memoryPromise = shouldAutoUpdateMemory() ? updateMemory(ch, cleanText, options) : null;
+  const bridgePromise = state.chapterContinuity !== false ? updateChapterBridge(ch, cleanText, Object.assign({}, options, {targetChapter:ch + 1})) : null;
+  state.lastMemoryPromise = memoryPromise;
+  state.lastMemoryTask = memoryPromise ? {chapter:ch,promise:memoryPromise} : null;
+  state.lastBridgePromise = bridgePromise;
+  state.lastBridgeTask = bridgePromise ? {chapter:ch,targetChapter:ch + 1,promise:bridgePromise} : null;
+  return {memoryPromise,bridgePromise};
 }
 
 function buildDynamicChapterContext(ch, outlineCh, pps, rawWritePrompt){
@@ -7698,7 +7971,7 @@ async function prepareManualChapterGeneration(ch){
   if(bridgeState.status === '已同步') return;
   updateGeneratingChapterUI(ch, '整理连贯信息');
   toast(`🔗 正在整理第 ${prevCh} 章承接信息...`);
-  const bridge = await updateChapterBridge(prevCh, cleanPrev, {signal: state.abortController?.signal, targetChapter: Number(ch)});
+  const bridge = await updateChapterBridge(prevCh, cleanPrev, {targetChapter: Number(ch)});
   if(bridge && typeof bridge === 'object'){
     bridge.contentHash = chapterContentHash(cleanPrev);
     bridge.targetChapter = Number(ch);
@@ -7727,7 +8000,7 @@ async function refreshContinuityCacheManual(){
   updateGeneratingChapterUI(ch, '刷新连贯缓存');
   toast(`🔄 正在刷新第 ${prevCh} 章 → 第 ${ch} 章连贯缓存...`);
   try{
-    await updateChapterBridge(prevCh, prev.content, {signal: state.abortController.signal, targetChapter: ch});
+    await updateChapterBridge(prevCh, prev.content, {targetChapter: ch});
     renderContinuityCachePanel();
     if(typeof isMobileLayout === 'function' && isMobileLayout()) renderMobileApp();
     toast('✅ 连贯缓存已刷新');
@@ -8029,12 +8302,7 @@ async function generateChapter(){
     document.getElementById('chChapterStatus').textContent = '✅ 本章已完成';
     document.getElementById('chChapterStatus').style.color = 'var(--success)';
     // 手动生成保持非阻塞更新；一键生成由 startAutoGen 在最终正文确认后统一更新
-    const memoryPromise = state.autoGenerating ? null : updateMemory(ch, currentText);
-    state.lastMemoryPromise = memoryPromise;
-    state.lastMemoryTask = memoryPromise ? {chapter: ch, promise: memoryPromise} : null;
-    const bridgePromise = (!state.autoGenerating && state.chapterContinuity !== false) ? updateChapterBridge(ch, currentText, {targetChapter: ch + 1}) : null;
-    state.lastBridgePromise = bridgePromise;
-    state.lastBridgeTask = bridgePromise ? {chapter: ch, targetChapter: ch + 1, promise: bridgePromise} : null;
+    const {memoryPromise, bridgePromise} = schedulePostGenerationContext(ch, currentText);
     renderContinuityCachePanel();
     
     const finalCount = currentText.replace(/\s/g,'').length;
@@ -8157,7 +8425,7 @@ async function continueChapter(){
     showAppendIndicator(newCount - prevLen, '续写完成');
     document.getElementById('chChapterStatus').textContent = '✅ 本章已完成';
     document.getElementById('chChapterStatus').style.color = 'var(--success)';
-    updateMemory(ch, editor.value);
+    schedulePostGenerationContext(ch, editor.value);
     toast('✅ 续写完成');
   }catch(e){
     if(e.name==='AbortError'){
@@ -8967,7 +9235,7 @@ ${chapterData.content}
     const editor = document.getElementById('chapterEditor');
     if(editor) editor.value = cleaned;
   }
-  if(shouldUseMemoryForCurrentTask()) await updateMemory(ch, cleaned, {runId: options.runId});
+  if(shouldAutoUpdateMemory()) await updateMemory(ch, cleaned, {runId: options.runId});
   if(state.chapterContinuity !== false) await updateChapterBridge(ch, cleaned, {runId: options.runId});
   if(options.runId !== undefined) assertAutoGenRunActive(options.runId);
   saveState();
@@ -9077,7 +9345,7 @@ ${chData.content}
     const editor = document.getElementById('chapterEditor');
     if(editor) editor.value = cleaned;
   }
-  if(shouldUseMemoryForCurrentTask()) await updateMemory(ch, cleaned, {runId: options.runId});
+  if(shouldAutoUpdateMemory()) await updateMemory(ch, cleaned, {runId: options.runId});
   if(state.chapterContinuity !== false) await updateChapterBridge(ch, cleaned, {runId: options.runId});
   if(options.runId !== undefined) assertAutoGenRunActive(options.runId);
   saveState();
@@ -9135,7 +9403,7 @@ ${chData.content}
     const editor = document.getElementById('chapterEditor');
     if(editor) editor.value = cleaned;
   }
-  if(shouldUseMemoryForCurrentTask()) await updateMemory(ch, cleaned, {runId: options.runId});
+  if(shouldAutoUpdateMemory()) await updateMemory(ch, cleaned, {runId: options.runId});
   if(state.chapterContinuity !== false) await updateChapterBridge(ch, cleaned, {runId: options.runId});
   if(options.runId !== undefined) assertAutoGenRunActive(options.runId);
   saveState();
@@ -9180,8 +9448,7 @@ async function rewriteChapterWithInstruction(instruction, options = {}){
     }
     if(options.silent || state.autoGenerating || window._bulkChapterRewriteActive){
       saveChapterWithSafety(ch, cleaned, options.source || 'rewrite-chapter', {route:'editing', snapshotSource:'before rewrite', previousContent: existing});
-      if(shouldUseMemoryForCurrentTask()) updateMemory(ch, cleaned);
-      if(state.chapterContinuity !== false) updateChapterBridge(ch, cleaned);
+      schedulePostGenerationContext(ch, cleaned);
       document.getElementById('chChapterStatus').textContent = '✅ 本章已完成';
       document.getElementById('chChapterStatus').style.color = 'var(--success)';
       toast('✅ 改写完成');
@@ -9196,8 +9463,7 @@ async function rewriteChapterWithInstruction(instruction, options = {}){
         operationType: options.source || 'rewrite-chapter',
         route: 'editing',
         onApply: async (text) => {
-          if(shouldUseMemoryForCurrentTask()) updateMemory(ch, text);
-          if(state.chapterContinuity !== false) updateChapterBridge(ch, text);
+          schedulePostGenerationContext(ch, text);
           const input = document.getElementById('rewriteInstruction');
           if(input) input.value = '';
           state.uiDrafts = state.uiDrafts || {};
@@ -9317,6 +9583,7 @@ async function deAIfyChapter(options = {}){
     }
     if(silent || state.autoGenerating){
       saveChapterWithSafety(ch, result, 'de-ai', {route:'editing', snapshotSource:'before de-AI', previousContent: content});
+      schedulePostGenerationContext(ch, result);
       editor.value = result;
       followEditorEnd(editor, true);
       if(!silent) showAppendIndicator(countTextChars(result), 'before change');
@@ -9337,6 +9604,7 @@ async function deAIfyChapter(options = {}){
         operationType: 'de-ai',
         route: 'editing',
         scoreData,
+        onApply: async (text) => { schedulePostGenerationContext(ch, text); },
         onRegenerate: async (pending) => {
           const regenBtn = document.getElementById('btnRewriteRegenerate');
           if(regenBtn) regenBtn.textContent = '生成中...';
@@ -9455,6 +9723,7 @@ async function generateEnding(){
     showAppendIndicator(newCount - prevLen, '章节结尾已添加');
     document.getElementById('chChapterStatus').textContent = '✅ 本章已完成';
     document.getElementById('chChapterStatus').style.color = 'var(--success)';
+    schedulePostGenerationContext(ch, combined);
     toast('✅ 章节结尾已添加');
   }catch(e){
     editor.value = fullExisting;
@@ -9999,11 +10268,12 @@ ${cleanText}
   "endingState": "",
   "keywords": []
 }`;
+  if(options.contextProgress !== false) updateContextProgress('memory',{status:'running',stage:`正在生成第 ${chapterNum} 章摘要卡`,output:''});
   try{
     const result = await apiStreamChatForAutoGen([
       {role:'system', content:'你是小说章节摘要整理助手。只输出合法 JSON 对象。'},
       {role:'user', content: prompt},
-    ], null, options, {route:'memory', temperature:0.25});
+    ], chunk => appendContextProgress('memory','output',chunk), options, {route:'memory', temperature:0.25, signal:options.signal, onReasoning:chunk => appendContextProgress('memory','reasoning',chunk)});
     if(options.runId !== undefined) assertAutoGenRunActive(options.runId);
     const parsed = extractJSONObject(result);
     if(parsed && typeof parsed === 'object' && !Array.isArray(parsed)){
@@ -10017,10 +10287,15 @@ ${cleanText}
 
 async function updateMemory(chapterNum, fullText, options = {}){
   if(options.runId !== undefined) assertAutoGenRunActive(options.runId);
+  if(!shouldAutoUpdateMemory() && options.manual !== true) return null;
   const cleanText = sanitizeGeneratedText(fullText || '');
   if(!cleanText.trim()) return;
+  const progressController = options.contextProgress === false ? null : beginContextProgress('memory', `正在整理第 ${chapterNum} 章长期记忆`, options);
+  const taskOptions = Object.assign({}, options, progressController ? {signal:progressController.signal} : {});
+  let usedFallback = false;
   if(!state.baseURL || !state.model){
     saveChapterSummaryCard(Object.assign(createFallbackChapterCard(chapterNum, cleanText), {source:'local-fallback-no-api'}));
+    if(progressController){ updateContextProgress('memory',{output:'未配置可用模型，已生成本地章节摘要卡。'}); finishContextProgress('memory','fallback','本地回退完成',progressController); }
     return;
   }
   const existing = JSON.stringify(state.memory, null, 2);
@@ -10060,7 +10335,7 @@ ${cleanText.slice(-3000)}
     let result = await apiStreamChatForAutoGen([
       {role:'system', content:'你是一个小说分析助手。根据最新一章的正文，提取对后续写作有用的长期信息，更新记忆JSON。返回完整的JSON。'},
       {role:'user', content: prompt},
-    ], null, options, {route:'memory', temperature:0.3});
+    ], chunk => appendContextProgress('memory','output',chunk), taskOptions, {route:'memory', temperature:0.3, signal:taskOptions.signal, onReasoning:chunk => appendContextProgress('memory','reasoning',chunk)});
     if(options.runId !== undefined) assertAutoGenRunActive(options.runId);
     
     // 提取 JSON 对象
@@ -10085,11 +10360,23 @@ ${cleanText.slice(-3000)}
       renderMemoryViewer();
     }
   }catch(e){
-    if(e.name === 'AbortError') throw e;
-    /* 静默失败，不干扰用户 */
+    if(e.name === 'AbortError'){
+      if(progressController){ finishContextProgress('memory','stopped','记忆整理已终止',progressController); return; }
+      throw e;
+    }
+    usedFallback = true;
+    if(progressController) updateContextProgress('memory',{status:'error',stage:'长期记忆整理失败，继续尝试章节摘要卡',output:(contextProgress.memory.output ? contextProgress.memory.output + '\n\n' : '') + String(e.message || e)});
   }
   if(options.runId !== undefined) assertAutoGenRunActive(options.runId);
-  await updateChapterSummaryCard(chapterNum, cleanText, options);
+  try{
+    const summaryCard = await updateChapterSummaryCard(chapterNum, cleanText, taskOptions);
+    usedFallback = usedFallback || String(summaryCard?.source || '').includes('fallback');
+    if(progressController) finishContextProgress('memory',usedFallback ? 'fallback' : 'completed',usedFallback ? '整理完成，部分内容使用本地回退' : '长期记忆与章节摘要卡整理完成',progressController);
+  }catch(e){
+    if(e.name === 'AbortError' && progressController){ finishContextProgress('memory','stopped','记忆整理已终止',progressController); return; }
+    if(progressController) finishContextProgress('memory','error','章节摘要卡整理失败',progressController);
+    else throw e;
+  }
 }
 
 function editMemory(){
@@ -10128,7 +10415,7 @@ async function refreshMemory(){
   const ch = state.currentChapter;
   const content = document.getElementById('chapterEditor').value;
   if(!content.trim()){ toast('当前章节为空'); return; }
-  await updateMemory(ch, content);
+  await updateMemory(ch, content, {manual:true});
   toast('记忆已更新');
 }
 
@@ -12573,6 +12860,18 @@ async function init(){
       saveState();
     });
   }
+  const memoryCb = document.getElementById('memoryToggle');
+  if(memoryCb){
+    memoryCb.checked = state.autoUpdateMemory !== false;
+    memoryCb.addEventListener('change', function(){ setAutoUpdateMemory(this.checked); });
+  }
+  const autoGenMemoryCb = document.getElementById('agMemoryUpdate');
+  if(autoGenMemoryCb){
+    autoGenMemoryCb.checked = state.autoUpdateMemory !== false;
+    autoGenMemoryCb.addEventListener('change', function(){ setAutoUpdateMemory(this.checked); });
+  }
+  setAutoUpdateMemory(state.autoUpdateMemory !== false, {save:false});
+  renderContextProgress();
   document.querySelectorAll('input[name="reviewMode"]').forEach(input => {
     input.addEventListener('change', updateReviewModeCards);
   });

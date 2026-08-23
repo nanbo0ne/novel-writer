@@ -29,6 +29,7 @@ V4.4.4 是干净的单模式公开版：只保留原始普通写作模式和默�
 - **DeepSeek 生成增强**：可选的全局增强开关会按任务实际路由模型判断，只对 DeepSeek 生成请求生效。
 - **虚拟首轮注入**：大纲生成和分章写作可分别配置虚拟用户消息、模型思考与模型回复，默认关闭。
 - **长篇连贯性**：章节摘要、长期记忆、章节桥接、剧情关键点和前文上下文协同工作。
+- **记忆控制与进度**：写作页可关闭自动记忆写入；承接、长期记忆和章节摘要卡会在独立弹窗中实时显示，支持后台继续、重新查看和单独终止整理。
 - **全文编辑 Agent**：可连续调用读取、搜索和编辑工具直到任务完成；选中的重点片段会持续高亮并显示在侧栏，但不会限制 Agent 按指令处理其他位置。
 - **可审阅改稿**：完整诊断显示在对话中，计划按修改位置归并；应用前可直接编辑最终成稿，再逐项确认、跳过、定位和撤销。
 - **增强工具兼容**：支持标准 `tool_calls`、旧式 `function_call` 及常见 JSON 工具格式，原始工具代码不会显示在对话中。
@@ -44,6 +45,7 @@ V4.4.4 是干净的单模式公开版：只保留原始普通写作模式和默�
 4. 生成或导入大纲，然后进入“写作”逐章创作。
 5. 使用“编辑”中的 Agent 做选区润色、计划修改和可撤销的全文修订。
 6. 定期从“导出”下载项目 JSON 备份和正文文件。
+7. 如需彻底清空当前网页来源的数据，可在“设置”底部使用需要二次确认的“恢复默认设置”。
 
 ## 模型与接口
 
@@ -89,6 +91,7 @@ V4.4.4 is the clean public single-mode edition. It contains only the original wr
 - **DeepSeek generation boost** with an optional global switch that follows the actual routed model and affects only DeepSeek generation requests.
 - **Virtual first-turn injection** for outline and chapter generation, with separate virtual user, reasoning, and assistant fields that are disabled by default.
 - **Long-form continuity tools** including summaries, persistent memory, chapter bridges, and plot points.
+- **Memory controls and live context progress** with a global automatic-write toggle, separate bridge/memory panels, background continuation, reopen, and context-only cancellation.
 - **Full-manuscript editing agent** that keeps reading, searching, and editing until the task is complete; pinned excerpts remain highlighted in the manuscript and visible in the sidebar without restricting edits elsewhere when the instruction requires them.
 - **Reviewable revisions** with full diagnostics in chat, location-based plan cards, editable final replacement text, step skipping, confirmation, history, and undo.
 - **Broader tool-call compatibility** for standard `tool_calls`, legacy `function_call`, and common JSON tool envelopes without exposing raw tool code in the conversation.
@@ -115,6 +118,8 @@ Model names, supported parameters, context limits, and data-retention policies d
 
 - Projects, chapters, chats, memory, and settings are stored locally in browser IndexedDB.
 - API keys remain in local browser storage and are not committed to this repository.
+- Disabling automatic memory stops automatic memory and summary-card writes while keeping existing memory available as writing context; manual memory updates remain available.
+- Factory reset removes only this application data for the current page origin and requires two confirmations.
 - Context is sent only when you invoke an AI-powered action, and only to the API endpoint you configured.
 - Clearing site data, switching browsers, or using private browsing can make local projects unavailable. Export JSON backups regularly.
 - V4.4.4 ignores incompatible legacy mode data without displaying, executing, or actively deleting the original local records.
