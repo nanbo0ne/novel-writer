@@ -1,15 +1,15 @@
-# 长篇小说写作助手 V4.4.5
+# 长篇小说写作助手 V4.4.6
 
 <div align="center">
 
 **Long-form Novel Writing Assistant**
 
-[![Version](https://img.shields.io/badge/version-4.4.5-b8860b)](./novel-writer-V4.4.5.html)
+[![Version](https://img.shields.io/badge/version-4.4.6-b8860b)](./novel-writer-V4.4.6.html)
 [![Single File](https://img.shields.io/badge/app-single--file_HTML-2f855a)](./index.html)
 [![Local First](https://img.shields.io/badge/data-local--first-2563eb)](#数据与隐私)
 [![GitHub Pages](https://img.shields.io/badge/demo-GitHub_Pages-181717)](https://nanbo0ne.github.io/novel-writer/)
 
-[在线使用](https://nanbo0ne.github.io/novel-writer/) · [下载独立版](./novel-writer-V4.4.5.html) · [English](#english)
+[在线使用](https://nanbo0ne.github.io/novel-writer/) · [下载独立版](./novel-writer-V4.4.6.html) · [English](#english)
 
 </div>
 
@@ -19,7 +19,7 @@
 
 长篇小说写作助手是一款本地优先的单文件 HTML 创作工具。它把项目设定、大纲、分章正文、长期记忆、审稿修改、全文编辑 Agent 和多格式导出集中在一个浏览器页面中，适合持续创作中长篇与超长篇小说。
 
-V4.4.5 是干净的单模式公开版：只保留原始普通写作模式和默认视觉主题，不包含加密载荷，也没有隐藏的替代模式或主题。源码与应用都在同一个 HTML 文件里，可直接阅读、下载和离线运行。
+V4.4.6 是干净的单模式公开版：只保留原始普通写作模式和默认视觉主题，不包含加密载荷，也没有隐藏的替代模式或主题。源码与应用都在同一个 HTML 文件里，可直接阅读、下载和离线运行。本版进一步加强章节正文与本章注意事项的持久化保护，避免临时空白编辑器、保存竞态或大纲替换造成数据丢失。
 
 ## 核心能力
 
@@ -40,7 +40,7 @@ V4.4.5 是干净的单模式公开版：只保留原始普通写作模式和默�
 
 ## 快速开始
 
-1. 打开[在线版本](https://nanbo0ne.github.io/novel-writer/)，或下载 `novel-writer-V4.4.5.html` 后用浏览器打开。
+1. 打开[在线版本](https://nanbo0ne.github.io/novel-writer/)，或下载 `novel-writer-V4.4.6.html` 后用浏览器打开。
 2. 在“设置”中填写 OpenAI 兼容 API 地址、API Key 和模型名称。
 3. 填写书名、类型、世界观、人物设定、章节数和每章目标字数。
 4. 生成或导入大纲，然后进入“写作”逐章创作。
@@ -60,14 +60,14 @@ API 服务商对模型名称、参数、上下文长度和数据保留政策的�
 - API Key 保存在浏览器本地，不会被上传到本仓库。
 - 只有执行 AI 功能时，对应上下文才会发送到你配置的 API 服务商。
 - 更换浏览器、清理网站数据或使用无痕模式可能导致本地项目不可用，请定期导出 JSON 备份。
-- V4.4.5 会忽略旧版不兼容的模式数据，不显示或执行它们，也不会主动删除原有本地记录。
+- V4.4.6 会忽略旧版不兼容的模式数据，不显示或执行它们，也不会主动删除原有本地记录。
 
 ## 文件
 
 | 文件 | 用途 |
 | --- | --- |
 | `index.html` | GitHub Pages 入口 |
-| `novel-writer-V4.4.5.html` | 可下载、可离线打开的独立版本 |
+| `novel-writer-V4.4.6.html` | 可下载、可离线打开的独立版本 |
 | `docs/screenshot.png` | README 界面预览 |
 
 ## 作者
@@ -82,7 +82,7 @@ API 服务商对模型名称、参数、上下文长度和数据保留政策的�
 
 Long-form Novel Writing Assistant is a local-first, single-file HTML workspace for planning, drafting, revising, and exporting long-form fiction. Project settings, outlines, chapter drafts, continuity memory, review tools, a full-manuscript editing agent, and exports all live in one browser application.
 
-V4.4.5 is the clean public single-mode edition. It contains only the original writing mode and the default visual theme. There is no encrypted payload and no hidden alternative mode or theme. The readable source and the application are delivered together as one HTML file.
+V4.4.6 is the clean public single-mode edition. It contains only the original writing mode and the default visual theme. There is no encrypted payload and no hidden alternative mode or theme. The readable source and the application are delivered together as one HTML file, with stronger protection against transient blank saves and note loss.
 
 ## Highlights
 
@@ -103,7 +103,7 @@ V4.4.5 is the clean public single-mode edition. It contains only the original wr
 
 ## Quick Start
 
-1. Open the [live application](https://nanbo0ne.github.io/novel-writer/) or download `novel-writer-V4.4.5.html`.
+1. Open the [live application](https://nanbo0ne.github.io/novel-writer/) or download `novel-writer-V4.4.6.html`.
 2. Open Settings and enter an OpenAI-compatible Base URL, API key, and model name.
 3. Define the title, genre, world, cast, chapter count, and target chapter length.
 4. Generate or import an outline, then draft chapters in the Writing view.
@@ -124,7 +124,7 @@ Model names, supported parameters, context limits, and data-retention policies d
 - Factory reset removes only this application data for the current page origin and requires two confirmations.
 - Context is sent only when you invoke an AI-powered action, and only to the API endpoint you configured.
 - Clearing site data, switching browsers, or using private browsing can make local projects unavailable. Export JSON backups regularly.
-- V4.4.5 ignores incompatible legacy mode data without displaying, executing, or actively deleting the original local records.
+- V4.4.6 ignores incompatible legacy mode data without displaying, executing, or actively deleting the original local records.
 
 ## Author
 
