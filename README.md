@@ -1,15 +1,15 @@
-# 长篇小说写作助手 V4.4.8
+# 长篇小说写作助手 V4.4.9
 
 <div align="center">
 
 **Long-form Novel Writing Assistant**
 
-[![Version](https://img.shields.io/badge/version-4.4.8-b8860b)](./novel-writer-V4.4.8.html)
+[![Version](https://img.shields.io/badge/version-4.4.9-b8860b)](./novel-writer-V4.4.9.html)
 [![Single File](https://img.shields.io/badge/app-single--file_HTML-2f855a)](./index.html)
 [![Local First](https://img.shields.io/badge/data-local--first-2563eb)](#数据与隐私)
 [![GitHub Pages](https://img.shields.io/badge/demo-GitHub_Pages-181717)](https://nanbo0ne.github.io/novel-writer/)
 
-[在线使用](https://nanbo0ne.github.io/novel-writer/) · [下载独立版](./novel-writer-V4.4.8.html) · [English](#english)
+[在线使用](https://nanbo0ne.github.io/novel-writer/) · [下载独立版](./novel-writer-V4.4.9.html) · [English](#english)
 
 </div>
 
@@ -19,7 +19,7 @@
 
 长篇小说写作助手是一款本地优先的单文件 HTML 创作工具。它把项目设定、大纲、分章正文、长期记忆、审稿修改、全文编辑 Agent 和多格式导出集中在一个浏览器页面中，适合持续创作中长篇与超长篇小说。
 
-V4.4.8 是干净的单模式公开版：只保留原始普通写作模式和默认视觉主题，不包含加密载荷，也没有隐藏的替代模式或主题。源码与应用都在同一个 HTML 文件里，可直接阅读、下载和离线运行。本版重点加强多页面保存冲突、任务模型供应商绑定、连接检测、导入安全、流式超时和长期记忆增量合并。
+V4.4.9 是干净的单模式公开版：只保留原始普通写作模式和默认视觉主题，不包含加密载荷，也没有隐藏的替代模式或主题。源码与应用都在同一个 HTML 文件里，可直接阅读、下载和离线运行。本版重点加强多页面保存冲突、任务模型供应商绑定、连接检测、导入安全、流式超时和长期记忆增量合并。
 
 ## 核心能力
 
@@ -40,7 +40,7 @@ V4.4.8 是干净的单模式公开版：只保留原始普通写作模式和默�
 
 ## 快速开始
 
-1. 打开[在线版本](https://nanbo0ne.github.io/novel-writer/)，或下载 `novel-writer-V4.4.8.html` 后用浏览器打开。
+1. 打开[在线版本](https://nanbo0ne.github.io/novel-writer/)，或下载 `novel-writer-V4.4.9.html` 后用浏览器打开。
 2. 在“设置”中填写 OpenAI 兼容 API 地址、API Key 和模型名称。
 3. 填写书名、类型、世界观、人物设定、章节数和每章目标字数。
 4. 生成或导入大纲，然后进入“写作”逐章创作。
@@ -60,14 +60,14 @@ API 服务商对模型名称、参数、上下文长度和数据保留政策的�
 - API Key 保存在浏览器本地，不会被上传到本仓库。
 - 只有执行 AI 功能时，对应上下文才会发送到你配置的 API 服务商。
 - 更换浏览器、清理网站数据或使用无痕模式可能导致本地项目不可用，请定期导出 JSON 备份。
-- V4.4.8 会忽略旧版不兼容的模式数据，不显示或执行它们，也不会主动删除原有本地记录。
+- V4.4.9 会忽略旧版不兼容的模式数据，不显示或执行它们，也不会主动删除原有本地记录。
 
 ## 文件
 
 | 文件 | 用途 |
 | --- | --- |
 | `index.html` | GitHub Pages 入口 |
-| `novel-writer-V4.4.8.html` | 可下载、可离线打开的独立版本 |
+| `novel-writer-V4.4.9.html` | 可下载、可离线打开的独立版本 |
 | `docs/screenshot.png` | README 界面预览 |
 
 ## 作者
@@ -82,7 +82,7 @@ API 服务商对模型名称、参数、上下文长度和数据保留政策的�
 
 Long-form Novel Writing Assistant is a local-first, single-file HTML workspace for planning, drafting, revising, and exporting long-form fiction. Project settings, outlines, chapter drafts, continuity memory, review tools, a full-manuscript editing agent, and exports all live in one browser application.
 
-V4.4.8 is the clean public single-mode edition. It contains only the original writing mode and the default visual theme. There is no encrypted payload and no hidden alternative mode or theme. This release strengthens multi-tab conflict handling, provider-bound model routing, connection checks, import validation, streaming timeouts, and non-destructive memory updates.
+V4.4.9 is the clean public single-mode edition. It contains only the original writing mode and the default visual theme. There is no encrypted payload and no hidden alternative mode or theme. This release strengthens multi-tab conflict handling, provider-bound model routing, connection checks, import validation, streaming timeouts, and non-destructive memory updates.
 
 ## Highlights
 
@@ -103,7 +103,7 @@ V4.4.8 is the clean public single-mode edition. It contains only the original wr
 
 ## Quick Start
 
-1. Open the [live application](https://nanbo0ne.github.io/novel-writer/) or download `novel-writer-V4.4.8.html`.
+1. Open the [live application](https://nanbo0ne.github.io/novel-writer/) or download `novel-writer-V4.4.9.html`.
 2. Open Settings and enter an OpenAI-compatible Base URL, API key, and model name.
 3. Define the title, genre, world, cast, chapter count, and target chapter length.
 4. Generate or import an outline, then draft chapters in the Writing view.
@@ -124,11 +124,18 @@ Model names, supported parameters, context limits, and data-retention policies d
 - Factory reset removes only this application data for the current page origin and requires two confirmations.
 - Context is sent only when you invoke an AI-powered action, and only to the API endpoint you configured.
 - Clearing site data, switching browsers, or using private browsing can make local projects unavailable. Export JSON backups regularly.
-- V4.4.8 ignores incompatible legacy mode data without displaying, executing, or actively deleting the original local records.
+- V4.4.9 ignores incompatible legacy mode data without displaying, executing, or actively deleting the original local records.
 
 ## Author
 
 伯劳 (Bolao)
+
+
+## V4.4.9 · 自由篇幅与参考前文 / Flexible Length and Prior Story
+
+章节数量和每章字数可分别留空，由 AI 根据故事自然决定；实际章节和一键生成遵循大纲，不为凑字数自动补写。项目页新增带独立开关的“参考前文”，默认关闭；开启后将完整前文提供给大纲和正文创作，关闭仍保留文本。支持保存、项目备份与导入；不自动摘要或截断，超出模型上下文时会提示调整。已有正文与注意事项保持不变。
+
+Leave chapter count or target words blank to let the model choose the scope naturally. Generation and progress follow the actual outline, without automatic word-count padding. **Prior Story** adds a per-project toggle, off by default: when enabled, the full text is included in outline and manuscript requests; disabling it keeps the saved text. Project backups retain both text and settings. No automatic summarization or truncation; context-limit errors prompt you to shorten the reference or change models. Existing chapters and notes are preserved.
 
 ## V4.4.8 · AI 大纲修订 / Outline Revision
 
