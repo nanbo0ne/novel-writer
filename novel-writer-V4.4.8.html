@@ -1294,8 +1294,8 @@ body.debug-mode .debug-only{display:inline-flex!important}
         <h3 style="margin-bottom:0">📑 章节大纲</h3>
         <div class="flex" style="gap:6px;align-items:center;flex-wrap:wrap">
           <button class="btn btn-sm" onclick="document.getElementById('outlineImportFile').click()">📥 导入大纲</button>
-          <button class="btn btn-sm" type="button" onclick="openOutlineRevision()">✎ AI 修改大纲</button>
           <button class="btn btn-sm" onclick="exportOutline()">📤 导出大纲</button>
+          <button class="btn btn-sm" type="button" onclick="openOutlineRevision()">✎ AI 修改大纲</button>
           <input type="file" id="outlineImportFile" accept=".json,application/json" style="display:none" onchange="importOutline(event)">
           <div class="split-btn-group outline-action-group">
             <button class="btn btn-sm btn-primary" id="btnGenOutline" onclick="runOutlineAction()">✨ 生成大纲</button>
