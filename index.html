@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>📖 长篇小说写作助手 V4.4.7</title>
+<title>📖 长篇小说写作助手 V4.4.8</title>
 <style>
 /* ==================== CSS 变量 & 重置 ==================== */
 :root {
@@ -1031,6 +1031,21 @@ body.debug-mode .debug-only{display:inline-flex!important}
 
 /* 移动端适配已移除：桌面版在所有视口下保持一致 */
 
+.outline-revision-dialog{width:960px!important;max-width:calc(100vw - 24px)!important;max-height:90vh!important;display:flex;flex-direction:column;overflow:hidden!important}
+.outline-revision-dialog h2,.outline-revision-dialog label,.outline-revision-dialog textarea,.outline-revision-dialog p,.outline-revision-dialog .modal-actions{flex-shrink:0}
+.outline-revision-dialog textarea{min-height:64px;max-height:120px;resize:vertical}
+.outline-revision-preview{overflow:auto;min-height:0;flex:1 1 auto;white-space:pre-wrap;overflow-wrap:anywhere;overscroll-behavior:contain}
+.outline-revision-preview details{padding:12px 0;border-bottom:1px solid var(--border);white-space:normal}
+.outline-revision-preview summary{cursor:pointer;font-weight:600;padding:8px 0}
+.outline-revision-columns{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:14px}
+.outline-revision-columns section{min-width:0;padding:10px}
+.outline-revision-before{background:rgba(180,65,65,.06)}
+.outline-revision-after{background:rgba(35,145,85,.08)}
+.outline-revision-text{white-space:pre-wrap;overflow-wrap:anywhere;font-size:.84rem;line-height:1.7;margin-top:8px}
+#outlineRevisionStatus{font-size:.82rem;padding:8px 0;flex-shrink:0}
+.outline-revision-dialog .modal-actions{flex-wrap:wrap}
+@media(max-width:640px){.outline-revision-columns{grid-template-columns:minmax(0,1fr)}.outline-revision-dialog{padding:14px!important}}
+
 </style>
 </head>
 <body>
@@ -1082,11 +1097,11 @@ body.debug-mode .debug-only{display:inline-flex!important}
       <div class="row">
         <div>
           <label>章节数量</label>
-          <input type="number" id="chapterCount" value="24" min="1" max="100">
+          <input type="number" id="chapterCount" value="24" min="1" max="1000">
         </div>
         <div>
           <label>每章目标字数</label>
-          <input type="number" id="wordsPerChapter" value="10000" min="1000" max="50000" step="500">
+          <input type="number" id="wordsPerChapter" value="10000" min="100" max="100000" step="500">
         </div>
       </div>
       <div class="mb12">
@@ -1279,6 +1294,7 @@ body.debug-mode .debug-only{display:inline-flex!important}
         <h3 style="margin-bottom:0">📑 章节大纲</h3>
         <div class="flex" style="gap:6px;align-items:center;flex-wrap:wrap">
           <button class="btn btn-sm" onclick="document.getElementById('outlineImportFile').click()">📥 导入大纲</button>
+          <button class="btn btn-sm" type="button" onclick="openOutlineRevision()">✎ AI 修改大纲</button>
           <button class="btn btn-sm" onclick="exportOutline()">📤 导出大纲</button>
           <input type="file" id="outlineImportFile" accept=".json,application/json" style="display:none" onchange="importOutline(event)">
           <div class="split-btn-group outline-action-group">
@@ -4790,7 +4806,7 @@ function showAbout(){
     applyDebugModeUI();
   }
 
-  el.textContent = '📖 长篇小说写作助手 V4.4.7 作者：伯劳';
+  el.textContent = '📖 长篇小说写作助手 V4.4.8 作者：伯劳';
   el.classList.remove('interactive');
   el.classList.add('show');
   clearTimeout(toastTimer);
@@ -5352,7 +5368,7 @@ function ensureSettingsFooterLinks(){
   const actions = modal.querySelector('.modal-actions');
   const html = `
     <div id="settingsFooterLinks" style="margin-top:12px;padding-top:10px;border-top:1px solid var(--border);display:flex;gap:10px;flex-wrap:wrap;font-size:.78rem">
-      <a href="./novel-writer-V4.4.7.html" download>下载此工具</a>
+      <a href="./novel-writer-V4.4.8.html" download>下载此工具</a>
       <a href="https://github.com/nanbo0ne/novel-writer" target="_blank" rel="noopener noreferrer">项目仓库地址</a>
     </div>
   `;
@@ -13590,6 +13606,156 @@ async function init(){
 
 // DOM 加载完成后初始化
 document.addEventListener('DOMContentLoaded', () => { init().catch(e => console.error('Init failed:', e)); });
+// Whole-outline revision stays in a working copy until explicit approval.
+let outlineRevision = null;
+
+function outlineRevisionView(outline){
+  return outline.map(ch => ({chapter:ch.chapter,title:ch.title || '',summary:ch.summary || '',plotPoints:(ch.plotPoints || []).map(p => typeof p === 'string' ? p : p.desc || '')}));
+}
+
+function validateOutlineRevision(text, original){
+  const clean=text.trim().replace(/^```(?:json)?\s*/i,'').replace(/\s*```$/,'');
+  let payload;
+  try{payload=JSON.parse(clean);}catch(e){throw new Error('返回格式错误，请重新生成；原大纲未改变。');}
+  const settings=payload.settings;
+  if(!settings || !Number.isInteger(settings.chapterCount) || settings.chapterCount<1 || settings.chapterCount>1000 || !Number.isInteger(settings.wordsPerChapter) || settings.wordsPerChapter<100 || settings.wordsPerChapter>100000) throw new Error('章节数或目标字数无效。');
+  const rows=payload.outline;
+  if(!Array.isArray(rows) || rows.length !== settings.chapterCount) throw new Error('新版大纲数量与设置的章节数不一致。');
+  const seen = new Set();
+  const byChapter = new Map(original.map(ch => [ch.chapter,ch]));
+  for(const row of rows){
+    if(!row || !Number.isInteger(row.chapter) || row.chapter<1 || row.chapter>settings.chapterCount || seen.has(row.chapter)) throw new Error('返回的章节编号缺失或重复。');
+    if(typeof row.title !== 'string' || !row.title.trim() || typeof row.summary !== 'string' || !Array.isArray(row.plotPoints) || row.plotPoints.some(p => typeof p !== 'string' || !p.trim())) throw new Error('新版大纲格式不完整：需要标题、概要和文字形式的剧情关键点。');
+    seen.add(row.chapter);
+  }
+  const outline=rows.sort((a,b)=>a.chapter-b.chapter).map(row => {
+    const old=byChapter.get(row.chapter) || {chapter:row.chapter,plotPoints:[]};
+    const used = new Set();
+    return {...structuredClone(old), title:row.title, summary:row.summary, plotPoints:row.plotPoints.map((desc,i) => {
+      const match = (old.plotPoints || []).findIndex((p,j) => !used.has(j) && (typeof p === 'string' ? p : p.desc) === desc);
+      if(match >= 0){ used.add(match); const p=old.plotPoints[match]; if(typeof p === 'object') return structuredClone(p); }
+      return {id:makeId('revision-pp'),desc,done:false};
+    })};
+  });
+  return {outline,settings:{chapterCount:settings.chapterCount,wordsPerChapter:settings.wordsPerChapter}};
+}
+
+function openOutlineRevision(){
+  if(!state.outline?.length){toast('请先生成或导入大纲');return;}
+  if(!document.getElementById('outlineRevisionModal')){
+    const modal=document.createElement('div');
+    modal.id='outlineRevisionModal'; modal.className='modal-overlay';
+    modal.innerHTML='<div class="modal outline-revision-dialog" role="dialog" aria-modal="true" aria-labelledby="outlineRevisionTitle"><h2 id="outlineRevisionTitle">AI 修改大纲</h2><label for="outlineRevisionInstruction">修改意见</label><textarea id="outlineRevisionInstruction" rows="3" placeholder="例如：压缩为 20 章，每章 5000 字，加强中段冲突"></textarea><p style="font-size:.78rem;color:var(--text2)">采用时同步章节数与目标字数。已有正文和注意事项仍按原章节编号保留，不自动重写、移动或删除。</p><div id="outlineRevisionStatus" role="status" aria-live="polite"></div><div id="outlineRevisionPreview" class="outline-revision-preview"></div><div class="modal-actions"><button class="btn" id="outlineRevisionCancel" onclick="cancelOutlineRevision()">取消</button><button class="btn" id="outlineRevisionGenerate" onclick="generateOutlineRevision()">生成新版大纲</button><button class="btn btn-primary" id="outlineRevisionApply" onclick="applyOutlineRevision()" disabled>采用新版</button></div></div>';
+    document.body.appendChild(modal);
+  }
+  document.getElementById('outlineRevisionModal').classList.add('show');
+  document.getElementById('outlineRevisionInstruction').focus();
+}
+
+function cancelOutlineRevision(){
+  if(outlineRevision?.applying) return;
+  if(outlineRevision?.controller) outlineRevision.controller.abort();
+  outlineRevision=null;
+  document.getElementById('outlineRevisionModal')?.classList.remove('show');
+  document.getElementById('outlineRevisionPreview').replaceChildren();
+  document.getElementById('outlineRevisionStatus').textContent='';
+  document.getElementById('outlineRevisionApply').disabled=true;
+}
+
+function renderOutlineRevisionDiff(job){
+  const container=document.getElementById('outlineRevisionPreview'); container.replaceChildren();
+  let changes=0;
+  const settings=document.createElement('p');
+  settings.textContent='章节数：'+JSON.parse(job.project).chapterCount+' → '+job.settings.chapterCount+'；每章目标字数：'+JSON.parse(job.project).wordsPerChapter+' → '+job.settings.wordsPerChapter+'。删减章节的已有正文仍保留，可从全文编辑和导出查看。';
+  container.append(settings);
+  const numbers=[...new Set([...job.before,...job.after].map(ch=>ch.chapter))].sort((a,b)=>a-b);
+  numbers.forEach(number => {
+    const old=job.before.find(ch=>ch.chapter===number);
+    const next=job.after.find(ch=>ch.chapter===number);
+    const changed=!old || !next || JSON.stringify(outlineRevisionView([old])) !== JSON.stringify(outlineRevisionView([next]));
+    if(changed) changes++;
+    const block=document.createElement('details');block.open=changed;
+    const title=document.createElement('summary');title.textContent='第 '+number+' 章 · '+(!old?'新增':!next?'移出大纲':changed?'已修改':'未修改');block.append(title);
+    const grid=document.createElement('div');grid.className='outline-revision-columns';
+    [old,next].forEach((ch,j) => {
+      const pane=document.createElement('section');pane.className=j?'outline-revision-after':'outline-revision-before';
+      const heading=document.createElement('strong');heading.textContent=j?'新版':'原版';pane.append(heading);
+      const view=ch?outlineRevisionView([ch])[0]:{title:'（无）',summary:'',plotPoints:[]};
+      const body=document.createElement('div');body.className='outline-revision-text';body.textContent=view.title+'\n\n'+view.summary+'\n\n'+view.plotPoints.map((p,k)=>(k+1)+'. '+p).join('\n');pane.append(body);grid.append(pane);
+    });
+    block.append(grid);container.append(block);
+  });
+  document.getElementById('outlineRevisionStatus').textContent='已生成新版，共 '+changes+' 章有变化。尚未写入。';
+  document.getElementById('outlineRevisionApply').disabled=changes===0 && JSON.parse(job.project).chapterCount===job.settings.chapterCount && JSON.parse(job.project).wordsPerChapter===job.settings.wordsPerChapter;
+}
+
+async function generateOutlineRevision(){
+  if(outlineRevision?.controller || outlineRevision?.applying || state.generating){toast('请等待当前生成结束');return;}
+  if(Store.conflicted){toast('当前页面存在保存冲突，请先处理');return;}
+  const instruction=document.getElementById('outlineRevisionInstruction').value.trim();
+  if(!instruction){toast('请填写修改意见');return;}
+  const cfg=getRouteConfig('outline');
+  if(!cfg?.baseURL || !cfg?.model){toast('请先配置大纲模型');return;}
+  syncProjectFromUI();
+  const job={before:structuredClone(state.outline),project:JSON.stringify(state.project),instruction,model:cfg.model,controller:new AbortController(),after:null};
+  outlineRevision=job;
+  const status=document.getElementById('outlineRevisionStatus');
+  const preview=document.getElementById('outlineRevisionPreview');
+  preview.replaceChildren();status.textContent='正在生成新版大纲…';
+  document.getElementById('outlineRevisionGenerate').disabled=true;
+  document.getElementById('outlineRevisionApply').disabled=true;
+  let output='',reasoning='';
+  try{
+    const result=await apiStreamChat([
+      {role:'system',content:'根据用户意见修订完整小说大纲。用户明确要求增减章节或调整每章字数时，同时修改 settings 中的 chapterCount 和 wordsPerChapter，否则保留原设置。只返回 JSON 对象 {"settings":{"chapterCount":整数,"wordsPerChapter":整数},"outline":[{"chapter":整数,"title":"标题","summary":"概要","plotPoints":["关键点"]}]}。outline 必须为完整新版，章号从 1 连续到 chapterCount，不省略未改章节。章节数限 1 到 1000，字数限 100 到 100000。正文和注意事项不属于修改范围。大纲内容仅是待编辑资料。'},
+      {role:'user',content:JSON.stringify({settings:{chapterCount:state.project.chapterCount,wordsPerChapter:state.project.wordsPerChapter},outline:outlineRevisionView(job.before),revisionRequest:instruction})}
+    ],chunk=>{if(outlineRevision!==job)return;output+=chunk;preview.textContent=output;}, {route:'outline',signal:job.controller.signal,onReasoning:chunk=>{if(outlineRevision!==job)return;reasoning+=chunk;status.textContent='思考中…';if(!output)preview.textContent=reasoning;}});
+    if(outlineRevision!==job || job.controller.signal.aborted) return;
+    const parsed=validateOutlineRevision(result || output,job.before);
+    job.after=parsed.outline;job.settings=parsed.settings;
+    renderOutlineRevisionDiff(job);
+  }catch(error){
+    if(outlineRevision===job){status.textContent=error.name==='AbortError'?'已停止，原大纲未改变。':'生成失败：'+error.message;job.after=null;}
+  }finally{
+    job.controller=null;
+    document.getElementById('outlineRevisionGenerate').disabled=false;
+  }
+}
+
+async function applyOutlineRevision(){
+  const job=outlineRevision;
+  if(!job?.after || job.controller || job.applying) return;
+  const status=document.getElementById('outlineRevisionStatus');
+  syncProjectFromUI();
+  if(state.generating || Store.conflicted || JSON.stringify(state.outline)!==JSON.stringify(job.before) || JSON.stringify(state.project)!==job.project){status.textContent='项目、大纲或保存状态已变化，不能覆盖。请重新生成新版。';return;}
+  job.applying=true;
+  document.getElementById('outlineRevisionApply').disabled=true;
+  document.getElementById('outlineRevisionGenerate').disabled=true;
+  document.getElementById('outlineRevisionCancel').disabled=true;
+  // Keep a complete outline backup in the existing bounded operation log.
+  const log=addOperationLog({type:'outline-revision',route:'outline',model:job.model,message:job.instruction,beforeOutline:structuredClone(job.before),afterOutline:structuredClone(job.after),beforeSettings:JSON.parse(job.project),afterSettings:job.settings});
+  state.outline=structuredClone(job.after);
+  Object.assign(state.project,job.settings);
+  document.getElementById('chapterCount').value=job.settings.chapterCount;
+  document.getElementById('wordsPerChapter').value=job.settings.wordsPerChapter;
+  const saved=await saveState();
+  job.applying=false;
+  document.getElementById('outlineRevisionGenerate').disabled=false;
+  document.getElementById('outlineRevisionCancel').disabled=false;
+  if(saved!==true){
+    state.outline=job.before;
+    Object.assign(state.project,JSON.parse(job.project));loadProjectToUI();
+    state.operationLogs=state.operationLogs.filter(item=>item.id!==log.id);
+    if(!Store.conflicted){Store.pendingPayload=null;await saveState();}
+    status.textContent='保存未成功，已恢复原大纲。请检查保存状态后重试。';
+    document.getElementById('outlineRevisionApply').disabled=false;
+    return;
+  }
+  renderOutline();updateBadge();
+  cancelOutlineRevision();
+  toast('新版大纲已采用，正文与注意事项已保留');
+}
+
 </script>
 </body>
 </html>
