@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>📖 长篇小说写作助手 V4.4.9</title>
+<title>📖 长篇小说写作助手 V4.5.0</title>
 <style>
 /* ==================== CSS 变量 & 重置 ==================== */
 :root {
@@ -1053,6 +1053,71 @@ body.debug-mode .debug-only{display:inline-flex!important}
 .prior-story-footer{margin-top:8px;font-size:.78rem;color:var(--text2)}
 .prior-story-hint{font-size:.78rem;color:var(--text2);margin:8px 0 0;overflow-wrap:anywhere}
 
+.icon-button450{display:inline-flex;align-items:center;justify-content:center;width:32px;height:32px;padding:6px;flex:0 0 32px}
+.icon-button450 svg,.agent-review-toolbar450 svg{width:18px;height:18px;flex-shrink:0}
+.agent-workspace450[hidden],.agent-workspace450 [hidden]{display:none!important}
+.agent-workspace450{position:fixed;inset:0;z-index:1200;background:rgba(0,0,0,.42);display:flex;align-items:center;justify-content:center;padding:16px}
+.agent-workspace-window450{width:min(1280px,100%);height:min(900px,calc(100dvh - 32px));min-height:0;display:flex;flex-direction:column;background:var(--surface);color:var(--text);border:1px solid var(--border);border-radius:8px;box-shadow:var(--shadow);overflow:hidden;font-size:14px}
+.agent-workspace-header450{display:flex;align-items:center;gap:12px;padding:12px 16px;flex:0 0 auto;border-bottom:1px solid var(--border)}
+.agent-workspace-header450 strong{font-size:17px}.agent-workspace-header450 [role=status]{flex:1;min-width:0;font-size:13px;overflow-wrap:anywhere;color:var(--text2)}
+.agent-workspace-tabs450{display:flex;gap:4px;padding:0 12px;border-bottom:1px solid var(--border);flex:0 0 auto}
+.agent-workspace-tabs450 button,.agent-review-mobile-tabs450 button{border:0;border-bottom:2px solid transparent;background:transparent;color:var(--text2);padding:12px 14px;cursor:pointer;font:inherit}
+.agent-workspace-tabs450 button[aria-selected=true],.agent-review-mobile-tabs450 button[aria-selected=true]{border-bottom-color:var(--accent);color:var(--text);font-weight:600}
+.agent-workspace450 [role=tabpanel]{flex:1;min-height:0;overflow:hidden}
+#agentWorkspaceChat450{display:flex}
+#agentWorkspaceChat450 .agent-sidebar{width:100%;height:100%;min-height:0;max-height:none;display:flex!important;flex-direction:column;border:0}
+#agentWorkspaceChat450 .agent-messages{flex:1;min-height:80px;font-size:15px;line-height:1.7}
+#agentWorkspaceChat450 .agent-message{font-size:15px;line-height:1.7}
+#agentWorkspaceChat450 .agent-plan,#agentWorkspaceChat450 .agent-pending{max-height:35%;flex:0 1 auto;overflow:auto}
+#agentWorkspaceChat450 .agent-plan textarea{font-size:15px;line-height:1.7}
+#agentWorkspaceReview450{display:flex;flex-direction:column}
+.agent-review-toolbar450{display:flex;align-items:center;gap:8px;padding:10px 14px;flex:0 0 auto;flex-wrap:wrap;border-bottom:1px solid var(--border)}
+.agent-review-toolbar450 label{display:flex;align-items:center;gap:5px;margin:0;font-size:14px}.agent-review-spacer450{flex:1}
+#agentReviewPosition450{min-width:100px;text-align:center;font-size:14px}
+.agent-review-columns450{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:0;flex:1;min-height:0;--review-font-size:16px}
+.agent-review-columns450>section{display:flex;flex-direction:column;min-width:0;min-height:0;padding:14px 18px}
+.agent-review-before450{border-right:1px solid var(--border);background:var(--surface2)}
+.agent-review-columns450 h3,.agent-review-columns450 label{font-size:14px;font-weight:600;line-height:1.5;margin:0 0 10px;color:var(--text2);flex:0 0 auto}
+#agentReviewBefore450,#agentReviewAfter450{flex:1;min-height:0;height:100%;width:100%;margin:0;padding:8px 10px;overflow:auto;white-space:pre-wrap;overflow-wrap:anywhere;line-height:1.8;font-family:var(--font);font-size:var(--review-font-size);letter-spacing:0;color:var(--text)}
+#agentReviewBefore450{border:1px solid transparent;tab-size:4}
+#agentReviewAfter450{resize:none;border:1px solid var(--border);border-radius:4px;background:var(--surface)}
+.agent-review-footer450{display:flex;align-items:center;justify-content:flex-end;gap:10px;flex:0 0 auto;padding:12px 16px;border-top:1px solid var(--border)}
+.agent-review-footer450>span{flex:1;font-size:13px;color:var(--text2)}
+.agent-workspace-empty450{padding:32px;color:var(--text2);text-align:center}
+#agentWorkspaceHistory450{display:flex;flex-direction:column}.agent-history-tools450{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:12px 16px;border-bottom:1px solid var(--border)}
+#agentSessionWarning450:not(:empty){padding:10px 16px;color:var(--danger);font-size:14px}
+#agentWorkspaceHistorySlot450{flex:1;min-height:0;overflow:hidden}
+#agentWorkspaceHistorySlot450 .agent-history-list{height:100%;max-height:none;overflow:auto;padding:16px}
+#agentWorkspaceHistorySlot450 .agent-history-batch{font-size:14px;line-height:1.7}
+.agent-history-batch450{border-bottom:1px solid var(--border);padding:16px 0}
+.agent-history-batch450:first-child{padding-top:0}.agent-history-batch450>strong{display:block;font-size:15px;overflow-wrap:anywhere}
+.agent-history-patch450{margin:10px 0}.agent-history-patch450 summary{cursor:pointer;font-size:14px}
+.agent-history-text450{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:12px;margin:8px 0}
+.agent-history-text450 pre{white-space:pre-wrap;overflow-wrap:anywhere;font-family:var(--font);font-size:15px;line-height:1.8;margin:4px 0;color:var(--text)}
+.agent-history-text450 span{color:var(--text2);font-size:13px}
+.agent-review-mobile-tabs450{display:none}
+.agent-pending-actions450{position:sticky;bottom:0;background:var(--surface);display:flex;gap:8px;align-items:center;padding:8px 0;border-top:1px solid var(--border)}
+.agent-pending-actions450 .btn-primary{flex:1}.agent-pending-status450{font-size:12px;color:var(--text2)}
+@media(max-width:800px){
+ .agent-workspace450{padding:6px}.agent-workspace-window450{height:calc(100dvh - 12px);width:100%}
+ .agent-workspace-header450{gap:6px;padding:10px}.agent-workspace-header450 strong{font-size:15px}.agent-workspace-header450 [role=status]{font-size:12px}
+ .agent-workspace-tabs450{padding:0 6px}.agent-workspace-tabs450 button{padding:10px;font-size:14px}
+ .agent-review-toolbar450{padding:8px;gap:6px}.agent-review-toolbar450 label{font-size:12px}
+ .agent-review-mobile-tabs450{display:flex;padding:0 8px;border-bottom:1px solid var(--border);flex:0 0 auto}
+ .agent-review-mobile-tabs450 button{padding:8px 16px}
+ .agent-review-columns450{grid-template-columns:minmax(0,1fr)}
+ .agent-review-columns450[data-side=before] .agent-review-after450,.agent-review-columns450[data-side=after] .agent-review-before450{display:none}
+ .agent-review-columns450>section{padding:10px}.agent-review-before450{border-right:0}
+ .agent-review-footer450{padding:8px;gap:6px;flex-wrap:wrap}.agent-review-footer450>span{flex-basis:100%}
+ .agent-history-text450{grid-template-columns:minmax(0,1fr)}
+}
+.agent-rewind450{position:absolute;inset:0;z-index:2;background:#0006;display:flex;align-items:center;justify-content:center;padding:16px}
+.agent-rewind450[hidden]{display:none}
+.agent-rewind450>section{display:flex;flex-direction:column;width:600px;max-width:100%;max-height:85%;background:var(--surface);padding:20px;border-radius:8px;box-shadow:0 8px 32px #0003;min-height:0}
+.agent-rewind450 h3{font-size:18px;margin:0 0 12px}.agent-rewind450 p{margin:0 0 12px}
+.agent-rewind450 ol{overflow:auto;min-height:0;padding-left:24px;flex:1}.agent-rewind450 li{padding:10px 0;border-bottom:1px solid var(--border);overflow-wrap:anywhere}
+.agent-rewind450 footer{display:flex;justify-content:flex-end;gap:8px;padding-top:12px;flex-shrink:0}
+
 </style>
 </head>
 <body>
@@ -1768,6 +1833,7 @@ body.debug-mode .debug-only{display:inline-flex!important}
           <button class="btn btn-sm agent-icon-btn" type="button" onclick="toggleEditorAgent()" title="展开或收起 Agent">◫</button>
           <div class="agent-head-title">AI Agent</div>
           <div class="agent-head-actions">
+<button id="agentWorkspaceExpand450" class="btn btn-sm icon-button450" type="button" onclick="openAgentWorkspace450()" title="展开 Agent 工作区" aria-label="展开 Agent 工作区"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 3h6v6"/><path d="m21 3-7 7"/><path d="m3 21 7-7"/><path d="M9 21H3v-6"/></svg></button>
             <button class="btn btn-sm agent-icon-btn" type="button" onclick="openAgentHistory()" title="修改记录">↶</button>
             <button class="btn btn-sm agent-icon-btn" type="button" onclick="openAgentPermissions()" title="章节权限">⚙</button>
           </div>
@@ -1787,7 +1853,7 @@ body.debug-mode .debug-only{display:inline-flex!important}
           <div class="agent-plan" id="editorAgentPlan" hidden></div>
           <div class="agent-pending" id="editorAgentPending" hidden></div>
           <div class="agent-input-wrap">
-            <div class="agent-scope-hint" id="editorAgentScope">未标记重点；范围含糊时 Agent 会先询问</div>
+            <div class="agent-scope-hint" id="editorAgentScope">当前未标记重点</div>
             <div class="agent-input-row">
               <textarea id="editorAgentInput" rows="2" placeholder="告诉 Agent 需要修改或检查什么"></textarea>
               <button class="btn btn-primary" id="editorAgentSend" type="button" onclick="sendEditorAgentMessage()">发送</button>
@@ -2239,6 +2305,63 @@ body.debug-mode .debug-only{display:inline-flex!important}
 <!-- ====== Toast ====== -->
 <div class="toast" id="toast"></div>
 
+<div id="agentWorkspace450" class="agent-workspace450" hidden onclick="if(event.target===this)closeAgentWorkspace450()">
+  <section class="agent-workspace-window450" role="dialog" aria-modal="true" aria-labelledby="agentWorkspaceTitle450" tabindex="-1">
+    <header class="agent-workspace-header450">
+      <strong id="agentWorkspaceTitle450">Agent 工作区</strong>
+      <span id="agentWorkspaceStatus450" role="status"></span>
+      <button class="btn btn-sm" type="button" onclick="stopEditorAgent()" id="agentWorkspaceStop450">停止任务</button>
+      <button class="btn btn-sm icon-button450" type="button" onclick="closeAgentHistory()" title="收起 Agent 工作区" aria-label="收起 Agent 工作区"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m14 10 7-7"/><path d="M20 10h-6V4"/><path d="m3 21 7-7"/><path d="M4 14h6v6"/></svg></button>
+    </header>
+    <nav class="agent-workspace-tabs450" role="tablist" aria-label="Agent 工作区视图">
+      <button id="agentWorkspaceTabChat450" role="tab" type="button" onclick="selectAgentWorkspaceTab450('chat')" aria-controls="agentWorkspaceChat450">对话与计划</button>
+      <button id="agentWorkspaceTabReview450" role="tab" type="button" onclick="selectAgentWorkspaceTab450('review')" aria-controls="agentWorkspaceReview450">审阅修改</button>
+      <button id="agentWorkspaceTabHistory450" role="tab" type="button" onclick="selectAgentWorkspaceTab450('history')" aria-controls="agentWorkspaceHistory450">修改记录</button>
+    </nav>
+    <div id="agentWorkspaceChat450" role="tabpanel" aria-labelledby="agentWorkspaceTabChat450"></div>
+    <div id="agentWorkspaceReview450" role="tabpanel" aria-labelledby="agentWorkspaceTabReview450" hidden>
+      <div class="agent-review-toolbar450">
+        <button class="btn btn-sm" type="button" onclick="moveAgentReview450(-1)" title="上一处修改" aria-label="上一处修改"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m15 18-6-6 6-6"/></svg></button>
+        <span id="agentReviewPosition450"></span>
+        <button class="btn btn-sm" type="button" onclick="moveAgentReview450(1)" title="下一处修改" aria-label="下一处修改"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 18 6-6-6-6"/></svg></button>
+        <label><input id="agentReviewSelected450" type="checkbox" onchange="togglePendingAgentPatch(agentWorkspace450.index,this.checked)">采用本处</label>
+        <button class="btn btn-sm" type="button" onclick="locatePendingAgent450()">定位正文</button>
+        <span class="agent-review-spacer450"></span>
+        <button class="btn btn-sm" type="button" onclick="changeAgentReviewFont450(-1)" title="缩小审阅文字">A−</button>
+        <span id="agentReviewFont450"></span>
+        <button class="btn btn-sm" type="button" onclick="changeAgentReviewFont450(1)" title="放大审阅文字">A+</button>
+      </div>
+      <div class="agent-review-mobile-tabs450" role="tablist" aria-label="原文与成稿">
+        <button type="button" role="tab" onclick="setAgentReviewSide450('before')" data-side="before">原文</button>
+        <button type="button" role="tab" onclick="setAgentReviewSide450('after')" data-side="after">最终成稿</button>
+      </div>
+      <div id="agentReviewEmpty450" class="agent-workspace-empty450" hidden>当前没有待确认修改</div>
+      <div id="agentReviewColumns450" class="agent-review-columns450" data-side="after">
+        <section class="agent-review-before450"><h3>原文</h3><pre id="agentReviewBefore450" tabindex="0"></pre></section>
+        <section class="agent-review-after450"><label for="agentReviewAfter450">最终成稿</label><textarea id="agentReviewAfter450" spellcheck="false" oninput="updatePendingAgentPatchAfter(agentWorkspace450.index,this.value)"></textarea></section>
+      </div>
+      <footer class="agent-review-footer450">
+        <span id="agentReviewNotice450">正文尚未改动</span>
+        <button class="btn" type="button" onclick="discardPendingAgentBatch()">跳过本步</button>
+        <button class="btn btn-primary" type="button" onclick="applyPendingAgentBatch(false)">应用所选修改</button>
+      </footer>
+    </div>
+    <div id="agentWorkspaceHistory450" role="tabpanel" aria-labelledby="agentWorkspaceTabHistory450" hidden>
+      <div class="agent-history-tools450"><span id="agentSessionCount450"></span><button class="btn btn-sm" type="button" onclick="clearAgentSession450()">清空临时记录</button></div>
+      <div id="agentSessionWarning450" role="status"></div>
+      <div id="agentWorkspaceHistorySlot450"></div>
+    </div>
+  </section>
+  <div id="agentRewind450" class="agent-rewind450" hidden>
+    <section role="alertdialog" aria-modal="true" aria-labelledby="agentRewindTitle450" aria-describedby="agentRewindSummary450">
+      <h3 id="agentRewindTitle450">确认回退范围</h3>
+      <p id="agentRewindSummary450"></p>
+      <ol id="agentRewindList450"></ol>
+      <footer><button id="agentRewindCancel450" class="btn" onclick="finishAgentRewind450(false)">取消回退</button><button class="btn btn-primary" onclick="finishAgentRewind450(true)">确认回退</button></footer>
+    </section>
+  </div>
+</div>
+
 <script>
 /* ================================================================
    JavaScript — 全部内置，无外部依赖
@@ -2605,7 +2728,7 @@ const DB = {
     });
   },
   replaceAllAtomic(payload, expectedRevision = 0, writerId = ''){
-    const stores = ['appState','chapters','chatWindows','referenceWorks','methodologyCards','chapterSnapshots','operationLogs','agentEditHistory'];
+    const stores = ['appState','chapters','chatWindows','referenceWorks','methodologyCards','chapterSnapshots','operationLogs'];
     return new Promise((resolve, reject) => {
       const tx = this.tx(stores, 'readwrite');
       let settled = false;
@@ -2652,7 +2775,7 @@ const DB = {
           replace('methodologyCards', payload.methodologyCards);
           replace('chapterSnapshots', payload.chapterSnapshots);
           replace('operationLogs', payload.operationLogs);
-          replace('agentEditHistory', payload.agentEditHistory);
+          // Legacy Agent history is retained untouched; new records live only in sessionStorage.
         };
       }catch(error){
         conflictError = error;
@@ -2683,7 +2806,7 @@ const Store = {
   },
   snapshot(){
     return {
-      schemaVersion: 12,
+      schemaVersion: 13,
       baseURL: state.baseURL,
       apiKey: state.apiKey,
       model: state.model,
@@ -2713,6 +2836,7 @@ const Store = {
       modelRouteThinkingEffort: state.modelRouteThinkingEffort,
       tempDefault: state.tempDefault,
       topPDefault: state.topPDefault,
+      activeChatId: state.activeChatId,
       chatIncludeOutline: state.chatIncludeOutline,
       chatIncludeChapters: state.chatIncludeChapters,
       editorAgent: state.editorAgent,
@@ -2745,6 +2869,9 @@ const Store = {
     const needsAgentPlanModeMigration = !Number.isFinite(agentPlanModeVersion) || agentPlanModeVersion < 1;
     const merged = deepMerge(structuredClone(defaults), supported);
     normalizeProject449(merged.project);
+    if(typeof merged.project.agentProjectId!=='string'||!merged.project.agentProjectId) merged.project.agentProjectId=makeId('project');
+    merged.editorAgent = merged.editorAgent || {};
+    merged.editorAgent.reviewFontSize = Math.max(14,Math.min(24,Number(merged.editorAgent.reviewFontSize)||16));
     if(merged.apiKey && (!merged.apiConfigs || merged.apiConfigs.length === 0)){
       merged.apiConfigs = [{id:'cfg_default', name:'默认配置', baseURL: merged.baseURL, apiKey: merged.apiKey, model: merged.model}];
       merged.activeConfigId = 'cfg_default';
@@ -2815,7 +2942,7 @@ const Store = {
     if(!merged.editorAgent.runState || typeof merged.editorAgent.runState !== 'object') merged.editorAgent.runState = null;
     if(['investigating','executing'].includes(merged.editorAgent.runState?.stage)) merged.editorAgent.runState.stage = 'paused';
     if(merged.editorAgent.runState?.stage === 'waiting-confirmation' && !merged.editorAgent.pendingBatch) merged.editorAgent.runState.stage = 'paused';
-    if(!Array.isArray(merged.agentEditHistory)) merged.agentEditHistory = [];
+    merged.agentEditHistory = [];
     if(!merged.memoryTrust || typeof merged.memoryTrust !== 'object' || Array.isArray(merged.memoryTrust)){
       merged.memoryTrust = {};
     }
@@ -2854,7 +2981,7 @@ const Store = {
       loaded.methodologyCards = await DB.getAll('methodologyCards');
       loaded.chapterSnapshots = await DB.getAll('chapterSnapshots');
       loaded.operationLogs = await DB.getAll('operationLogs');
-      loaded.agentEditHistory = await DB.getAll('agentEditHistory');
+      loaded.agentEditHistory = [];
       state = this.normalize(loaded);
       state.chapters.sort((a,b) => (a.chapter || 0) - (b.chapter || 0));
       if(!state.chatWindows || state.chatWindows.length === 0){
@@ -2900,7 +3027,7 @@ const Store = {
       methodologyCards:structuredClone(state.methodologyCards || []),
       chapterSnapshots:structuredClone(state.chapterSnapshots || []),
       operationLogs:structuredClone(state.operationLogs || []),
-      agentEditHistory:structuredClone((state.agentEditHistory || []).slice(0,200)),
+      
     };
   },
   async drainSaves(){
@@ -2959,7 +3086,6 @@ function exportSaveConflictBackup(){
     methodologyCards: state.methodologyCards || [],
     reviewReports: state.reviewReports,
     editorAgent: state.editorAgent,
-    agentEditHistory: (state.agentEditHistory || []).slice(0, 200),
   };
   downloadFile((state.project?.title || '小说') + '_冲突页备份.json', JSON.stringify(backup, null, 2), 'application/json;charset=utf-8');
   toast('已导出本页未覆盖的数据');
@@ -3157,6 +3283,7 @@ async function confirmFactoryReset(){
     if(DB.db){ DB.db.close(); DB.db = null; }
     localStorage.removeItem(STORAGE_KEY);
     localStorage.removeItem(MIGRATION_KEY);
+    for(const key of Object.keys(sessionStorage))if(key.startsWith('novelWriterAgentSession:'))sessionStorage.removeItem(key);
     await deleteNovelWriterDatabase();
     location.reload();
   }catch(error){
@@ -4829,7 +4956,7 @@ function showAbout(){
     applyDebugModeUI();
   }
 
-  el.textContent = '📖 长篇小说写作助手 V4.4.9 作者：伯劳';
+  el.textContent = '📖 长篇小说写作助手 V4.5.0 作者：伯劳';
   el.classList.remove('interactive');
   el.classList.add('show');
   clearTimeout(toastTimer);
@@ -5391,7 +5518,7 @@ function ensureSettingsFooterLinks(){
   const actions = modal.querySelector('.modal-actions');
   const html = `
     <div id="settingsFooterLinks" style="margin-top:12px;padding-top:10px;border-top:1px solid var(--border);display:flex;gap:10px;flex-wrap:wrap;font-size:.78rem">
-      <a href="./novel-writer-V4.4.9.html" download>下载此工具</a>
+      <a href="./novel-writer-V4.5.0.html" download>下载此工具</a>
       <a href="https://github.com/nanbo0ne/novel-writer" target="_blank" rel="noopener noreferrer">项目仓库地址</a>
     </div>
   `;
@@ -7272,39 +7399,30 @@ function exportOutline(){
 }
 
 function importOutline(event){
-  const file = event?.target?.files?.[0];
-  if(!file) return;
-  const reader = new FileReader();
-  reader.onload = function(e){
+  if(agentSession450.busy){toast('正在保存 Agent 修改，请稍候');return;}
+  const file=event?.target?.files?.[0];if(!file)return;
+  if(file.size>PROJECT_IMPORT_LIMITS.bytes){toast('大纲文件超过安全上限');event.target.value='';return;}
+  const reader=new FileReader();
+  reader.onload=async function(e){
+    const oldOutline=state.outline,oldCount=state.project.chapterCount;
+    let changed=false;
     try{
-      const data = JSON.parse(e.target.result);
-      const rawOutline = Array.isArray(data) ? data : data.outline;
-      if(!Array.isArray(rawOutline)) throw new Error('未找到 outline 数组');
-      const parsed = parseOutlineJSON(JSON.stringify(rawOutline));
-      if(!parsed || !parsed.length) throw new Error('未能解析章节大纲');
-      if((state.outline || []).length && !confirm('导入大纲会替换当前大纲，确定继续？')) return;
-      state.outline = parsed
-        .map((ch, i) => normalizeOutlineChapterForAppend(ch, outlineChapterNumber(ch.chapter, i + 1)))
-        .sort((a, b) => outlineChapterNumber(a.chapter, 0) - outlineChapterNumber(b.chapter, 0));
-      const maxChapter = getOutlineMaxChapter();
-      if(state.project.chapterCount !== null && maxChapter > Number(state.project.chapterCount || 0)){
-        state.project.chapterCount = maxChapter;
-        const countEl = document.getElementById('chapterCount');
-        if(countEl) countEl.value = maxChapter;
-      }
-      renderOutline();
-      updateOutlineActionButton();
-      updateBadge();
-      renderMobileApp();
-      saveState();
-      toast(`📥 已导入 ${state.outline.length} 章大纲`);
-    }catch(err){
-      toast('❌ 大纲导入失败: ' + err.message);
-    }finally{
-      if(event?.target) event.target.value = '';
-    }
+      const data=cloneValidatedJson(JSON.parse(e.target.result));
+      const parsed=validateImportedOutline450(Array.isArray(data)?data:data.outline);
+      if(state.generating||agentSession450.busy||Store.conflicted)throw new Error('当前有生成或保存冲突，请稍后导入');
+      if(state.outline.length&&!confirm('导入大纲会替换当前大纲，确定继续？'))return;
+      state.outline=parsed;changed=true;
+      if(oldCount!==null)state.project.chapterCount=Math.max(Number(oldCount)||0,...parsed.map(ch=>ch.chapter));
+      if(await saveState()!==true)throw new Error('保存失败，原大纲已保留');
+      renderOutline();updateOutlineActionButton();updateBadge();renderMobileApp();
+      const input=document.getElementById('chapterCount');if(input)input.value=state.project.chapterCount??'';
+      toast(`已导入 ${parsed.length} 章大纲`);
+    }catch(error){
+      if(changed){state.outline=oldOutline;state.project.chapterCount=oldCount;Store.pendingPayload=null;}
+      toast('大纲导入失败: '+error.message);
+    }finally{if(event?.target)event.target.value='';}
   };
-  reader.readAsText(file, 'utf-8');
+  reader.readAsText(file,'utf-8');
 }
 
 function renderOutline(){
@@ -9602,8 +9720,8 @@ async function applySelectedChapterReviewSuggestions(){
     state.uiDrafts = state.uiDrafts || {};
     state.uiDrafts.rewriteInstruction = input.value;
   }
-  await rewriteChapterWithInstruction(input.value, {source:'expertReview'});
-  selected.forEach(s => s.applied = true);
+  await rewriteChapterWithInstruction(input.value, {source:'expertReview',onApplied:()=>{selected.forEach(s=>s.applied=true);saveState();renderChapterReviewSuggestions();}});
+
   saveState();
   renderChapterReviewSuggestions();
 }
@@ -9874,8 +9992,8 @@ async function rewriteChapterWithInstruction(instruction, options = {}){
   if(state.generating){ toast('⏳ 正在处理中...'); return; }
   const ch = state.currentChapter;
   const editor = document.getElementById('chapterEditor');
-  const existing = editor.value.trim();
-  if(!existing){ toast('当前章节为空'); return; }
+  const existing = editor.value;
+  if(!existing.trim()){ toast('当前章节为空'); return; }
   state.generating = true;
   state.abortController = new AbortController();
   if(!options.silent) showStopButton();
@@ -9906,6 +10024,7 @@ async function rewriteChapterWithInstruction(instruction, options = {}){
     if(options.silent || state.autoGenerating || window._bulkChapterRewriteActive){
       saveChapterWithSafety(ch, cleaned, options.source || 'rewrite-chapter', {route:'editing', snapshotSource:'before rewrite', previousContent: existing});
       schedulePostGenerationContext(ch, cleaned);
+      if(typeof options.onApplied==='function')options.onApplied();
       document.getElementById('chChapterStatus').textContent = '✅ 本章已完成';
       document.getElementById('chChapterStatus').style.color = 'var(--success)';
       toast('✅ 改写完成');
@@ -9920,6 +10039,7 @@ async function rewriteChapterWithInstruction(instruction, options = {}){
         operationType: options.source || 'rewrite-chapter',
         route: 'editing',
         onApply: async (text) => {
+          if(typeof options.onApplied==='function')options.onApplied();
           schedulePostGenerationContext(ch, text);
           const input = document.getElementById('rewriteInstruction');
           if(input) input.value = '';
@@ -11188,7 +11308,8 @@ function renderExportTab(){
 }
 
 function exportNovel(format){
-  // 导出时复制数据，不修改源数据
+  if(state.currentTab==='editor')syncFullEditorToState();
+  // 阅读格式清理与项目原样备份分开处理。
   const chapters = state.chapters
     .map(c => ({chapter: c.chapter, content: c.content ? stripMarkers(c.content).trim() : ''}))
     .filter(c => c.content);
@@ -11243,7 +11364,7 @@ ${chapters.map(ch => {
         exportTime: new Date().toISOString(),
         project: state.project,
         outline: state.outline,
-        chapters: chapters,
+        chapters: state.chapters.map(c=>({...c,content:String(c.content??'')})),
         chapterNotes: state.chapterNotes || {},
         memory: state.memory,
         chapterMemories: state.chapterMemories || {},
@@ -11255,12 +11376,11 @@ ${chapters.map(ch => {
         chapterSnapshots: state.chapterSnapshots || [],
         operationLogs: state.operationLogs || [],
         editorAgent: state.editorAgent || getDefaultState().editorAgent,
-        agentEditHistory: (state.agentEditHistory || []).slice(0, 200),
         memoryTrust: state.memoryTrust || {},
         savedPrompts: state.savedPrompts || {},
         promptInjections: normalizePromptInjections(state.promptInjections),
         outlineActionMode: state.outlineActionMode || 'generate',
-        version: 11,
+        version: 12,
       };
       downloadFile(`${title}_备份.json`, JSON.stringify(backup, null, 2), 'application/json;charset=utf-8');
       toast('💾 项目备份已下载');
@@ -11310,7 +11430,7 @@ function buildImportedProjectState(rawData){
     if(Object.hasOwn(data.project,key) && !isValidProjectTarget(data.project[key],key)) throw new Error('无效的项目篇幅设置');
   }
   const chapters = Array.isArray(data.chapters) ? data.chapters : [];
-  const outline = Array.isArray(data.outline) ? data.outline : [];
+  const outline = Array.isArray(data.outline) && data.outline.length ? validateImportedOutline450(data.outline) : [];
   if(chapters.length > PROJECT_IMPORT_LIMITS.chapters || outline.length > PROJECT_IMPORT_LIMITS.chapters) throw new Error('章节数量超过安全上限');
   const normalizedChapters = chapters.map((chapter, index) => {
     if(!isPlainObject(chapter)) throw new Error('第 ' + (index + 1) + ' 条章节数据无效');
@@ -11325,6 +11445,7 @@ function buildImportedProjectState(rawData){
     if(duplicateChapters.has(chapter.chapter)) throw new Error('章节编号 ' + chapter.chapter + ' 重复');
     duplicateChapters.add(chapter.chapter);
   });
+  if(!data.project.agentProjectId)data.project.agentProjectId=makeId('project');
   const base = Store.snapshot();
   const patch = {
     project:data.project,
@@ -11341,7 +11462,7 @@ function buildImportedProjectState(rawData){
     chapterSnapshots:Array.isArray(data.chapterSnapshots) ? data.chapterSnapshots : [],
     operationLogs:Array.isArray(data.operationLogs) ? data.operationLogs : [],
     editorAgent:isPlainObject(data.editorAgent) ? data.editorAgent : base.editorAgent,
-    agentEditHistory:Array.isArray(data.agentEditHistory) ? data.agentEditHistory.slice(0, 200) : [],
+    agentEditHistory:[],
     memoryTrust:isPlainObject(data.memoryTrust) ? data.memoryTrust : {},
     outlineActionMode:['generate','continue'].includes(data.outlineActionMode) ? data.outlineActionMode : 'generate',
   };
@@ -11374,15 +11495,18 @@ function importProject(event){
     const previousState = state;
     try{
       const data = JSON.parse(e.target.result);
+      if(agentSession450.busy)throw new Error('正在保存 Agent 修改，请稍候');
       const candidate = buildImportedProjectState(data);
       state = candidate;
+      getChatWin();
+      loadAgentSession450();
       loadProjectToUI();
       fillPromptsFromState();
       renderOutline();
       updateOutlineActionButton();
       renderMethodologyCards();
       updateBadge();
-      await saveState();
+      if(await saveState()!==true){Store.pendingPayload=null;throw new Error('保存失败，原项目已保留');}
       switchTab('project');
       toast('✅ 项目已导入');
     }catch(err){
@@ -11439,7 +11563,11 @@ function renderMarkdown(text){
 // 所有渲染从 state 读取，保证状态即视图
 
 function getChatWin(){
-  return (state.chatWindows||[]).find(w => w.id === state.activeChatId);
+  if(!Array.isArray(state.chatWindows))state.chatWindows=[];
+  state.chatWindows=state.chatWindows.filter(w=>w && typeof w==='object' && w.id);
+  if(!state.chatWindows.length)state.chatWindows.push({id:makeId('chat'),name:'对话1',messages:[],systemPrompt:''});
+  const win=state.chatWindows.find(w=>w.id===state.activeChatId)||state.chatWindows[0];
+  state.activeChatId=win.id;if(!Array.isArray(win.messages))win.messages=[];return win;
 }
 
 function renderChatTab(){
@@ -11803,7 +11931,7 @@ function ensureEditorAgentState(){
   state.editorAgent.currentPlan = normalizeStoredAgentPlan(state.editorAgent.currentPlan);
   if(state.editorAgent.pendingBatch && typeof state.editorAgent.pendingBatch === 'object') state.editorAgent.pendingBatch.editOpen = !!state.editorAgent.pendingBatch.editOpen;
   if(!state.editorAgent.runState || typeof state.editorAgent.runState !== 'object') state.editorAgent.runState = null;
-  if(!Array.isArray(state.agentEditHistory)) state.agentEditHistory = [];
+  loadAgentSession450();
   return state.editorAgent;
 }
 
@@ -11984,7 +12112,26 @@ function getEditorChapterTitle(chapter){
 }
 
 function editorBodyText(body){
-  return String(body?.innerText || '').replace(/\u00a0/g, ' ').replace(/\r\n?/g, '\n');
+  if(!body)return '';
+  if(!body.querySelector('div,p,br'))return String(body.textContent||'');
+  // Browser-created line blocks contain placeholder BRs, not extra blank paragraphs.
+  const blocks=new Set(['DIV','P','LI','PRE','BLOCKQUOTE']);
+  function read(node,block){
+    const children=[...node.childNodes];
+    if(block && children.length===1 && children[0].nodeName==='BR')return '';
+    let text='';
+    children.forEach((child,index)=>{
+      if(child.nodeType===Node.TEXT_NODE)text+=child.nodeValue;
+      else if(child.nodeName==='BR')text+='\n';
+      else if(blocks.has(child.nodeName)){
+        if(text && !text.endsWith('\n'))text+='\n';
+        text+=read(child,true);
+        if(index<children.length-1)text+='\n';
+      }else text+=read(child,false);
+    });
+    return text;
+  }
+  return read(body,false);
 }
 
 function updateFullEditorCount(){
@@ -12105,7 +12252,7 @@ function syncFullEditorToState(){
     const nextText = editorBodyText(body);
     const oldText = getChapterContent(chapter);
     reconcileAgentFocusAfterEdit(chapter,oldText,nextText);
-    setChapterContent(chapter, nextText, {skipSanitize:true,syncEditors:false,reconcileFocus:false});
+    setChapterContent(chapter, nextText, {skipSanitize:true,allowEmpty:true,syncEditors:false,reconcileFocus:false});
   });
   renderEditorAgentFocusList();
   updateFullEditorCount();
@@ -12187,7 +12334,7 @@ function updateEditorAgentScope(message){
   if(message) el.textContent = message;
   else if(fullEditorSelection) el.textContent = `当前选中第 ${fullEditorSelection.chapter} 章 · ${countTextChars(fullEditorSelection.text)} 字，可交给 Agent 作为重点`;
   else if(ensureEditorAgentState().focusExcerpts.length) el.textContent = `已标记 ${state.editorAgent.focusExcerpts.length} 处重点，Agent 仍可按指令处理其他位置`;
-  else el.textContent = '未标记重点；范围含糊时 Agent 会先询问';
+  else el.textContent = '当前未标记重点';
 }
 
 function focusSelectionInAgent(){
@@ -12231,6 +12378,8 @@ function setEditorAgentRunStatus(stage, progress = ''){
   if(status) status.hidden = !stage;
   if(stageEl) stageEl.textContent = stage || '';
   if(progressEl) progressEl.textContent = progress || '';
+
+  renderAgentWorkspace450();
 }
 
 function renderEditorAgentRunStatus(){
@@ -13093,7 +13242,7 @@ async function runEditorAgent(instruction, options = {}){
       if(run.patches.length){
         state.editorAgent.pendingBatch = createPendingAgentBatch(run,instruction,usedModel,{planStep:options.planStep});
         if(state.editorAgent.applyMode === 'direct'){
-          const applied = applyPendingAgentBatch(true,{continuePlan:false});
+          const applied = await applyPendingAgentBatch(true,{continuePlan:false});
           if(applied){
             addEditorAgentMessage('assistant',`已直接应用 ${run.patches.length} 处修改，可在修改记录中定位或撤销。`);
             outcome = {status:'completed',applied:true};
@@ -13148,14 +13297,13 @@ function stopEditorAgent(){
 }
 
 function renderEditorAgentPending(){
-  const panel = document.getElementById('editorAgentPending');
-  if(!panel) return;
-  const batch = ensureEditorAgentState().pendingBatch;
-  panel.hidden = !batch?.patches?.length;
-  if(panel.hidden){ panel.innerHTML=''; return; }
-  panel.innerHTML = `<div class="agent-panel-title"><span>待确认修改 · ${batch.patches.length} 处</span><span class="agent-pending-actions"><button class="btn btn-sm agent-pending-edit-toggle" type="button" onclick="togglePendingAgentEdit()" aria-label="编辑最终文本" title="编辑最终文本">✎</button><button class="btn btn-sm" onclick="discardPendingAgentBatch()">跳过本步</button>${batch.planStep ? '<button class="btn btn-sm" style="margin-left:4px" onclick="stopPendingAgentPlan()">停止计划</button>' : ''}</span></div>
-    ${batch.patches.map((patch,index) => `<div class="agent-patch"><div class="agent-patch-head"><input type="checkbox" ${patch.selected !== false ? 'checked' : ''} onchange="togglePendingAgentPatch(${index},this.checked)"><span>第 ${patch.chapter} 章</span></div><div class="agent-patch-diff"><div class="agent-patch-old">- ${escapeHtml(patch.before || '（插入）')}</div><div class="agent-patch-new">+ ${escapeHtml(patch.after || '（删除）')}</div></div>${batch.editOpen ? `<div class="agent-patch-editor"><label for="agentPatchAfter_${index}">最终成稿</label><textarea id="agentPatchAfter_${index}" maxlength="${AGENT_PATCH_TEXT_LIMIT}" oninput="updatePendingAgentPatchAfter(${index},this.value)">${escapeHtml(patch.after || '')}</textarea></div>` : ''}</div>`).join('')}
-    <button class="btn btn-primary" style="width:100%;margin-top:4px" onclick="applyPendingAgentBatch(false)">应用所选修改</button>`;
+  const panel=document.getElementById('editorAgentPending');if(!panel)return;
+  const batch=ensureEditorAgentState().pendingBatch;panel.hidden=!batch?.patches?.length;
+  if(panel.hidden){panel.innerHTML='';renderAgentWorkspace450();return;}
+  panel.innerHTML=`<div class="agent-panel-title"><span>待确认修改 · ${batch.patches.length} 处</span><button class="btn btn-sm agent-pending-edit-toggle" type="button" onclick="togglePendingAgentEdit()" aria-label="编辑最终文本" title="编辑最终文本">✎</button></div><div class="agent-pending-status450">正文尚未改动</div>
+  ${batch.patches.map((patch,index)=>`<div class="agent-patch"><div class="agent-patch-head"><input type="checkbox" aria-label="采用第${index+1}处修改" ${patch.selected!==false?'checked':''} onchange="togglePendingAgentPatch(${index},this.checked)"><span>第 ${patch.chapter} 章</span><button class="btn btn-sm icon-button450" type="button" title="展开审阅" aria-label="展开第${index+1}处修改" onclick="openAgentWorkspace450('review',${index})"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 3h6v6"/><path d="m21 3-7 7"/><path d="m3 21 7-7"/><path d="M9 21H3v-6"/></svg></button></div><div class="agent-patch-diff"><div class="agent-patch-old">− ${escapeHtml(patch.before||'（插入）')}</div><div class="agent-patch-new">+ ${escapeHtml(patch.after||'（删除）')}</div></div>${batch.editOpen?`<div class="agent-patch-editor"><label for="agentPatchAfter_${index}">最终成稿</label><textarea id="agentPatchAfter_${index}" maxlength="${AGENT_PATCH_TEXT_LIMIT}" oninput="updatePendingAgentPatchAfter(${index},this.value)">${escapeHtml(patch.after||'')}</textarea></div>`:''}</div>`).join('')}
+  <div class="agent-pending-actions450"><button class="btn btn-sm" type="button" onclick="discardPendingAgentBatch()">跳过本步</button>${batch.planStep?'<button class="btn btn-sm" type="button" onclick="stopPendingAgentPlan()">停止计划</button>':''}<button class="btn btn-primary" type="button" onclick="applyPendingAgentBatch(false)">应用所选修改</button></div>`;
+  renderAgentWorkspace450();
 }
 
 function togglePendingAgentEdit(){
@@ -13166,22 +13314,26 @@ function togglePendingAgentEdit(){
   saveState();
 }
 
-function updatePendingAgentPatchAfter(index, value){
-  const patch = state.editorAgent?.pendingBatch?.patches?.[index];
-  if(!patch) return;
-  patch.after = String(value || '');
-  const textarea = document.getElementById(`agentPatchAfter_${index}`);
-  if(textarea && textarea.value !== patch.after) textarea.value = patch.after;
+function updatePendingAgentPatchAfter(index,value){
+  if(agentSession450.busy)return;
+  const patch=state.editorAgent?.pendingBatch?.patches[index];if(!patch)return;
+  patch.after=String(value||'');
+  for(const id of [`agentPatchAfter_${index}`,...(agentWorkspace450.index===index?['agentReviewAfter450']:[])]){
+    const textarea=document.getElementById(id);if(textarea && textarea.value!==patch.after)textarea.value=patch.after;
+  }
   saveState();
 }
 
 function togglePendingAgentPatch(index, selected){
+  if(agentSession450.busy)return;
   const patch = state.editorAgent?.pendingBatch?.patches?.[index];
   if(patch) patch.selected = !!selected;
   saveState();
+  renderAgentWorkspace450();
 }
 
 function discardPendingAgentBatch(){
+  if(agentSession450.busy){toast('正在保存，请稍候');return;}
   const batch = state.editorAgent?.pendingBatch;
   state.editorAgent.pendingBatch = null;
   finishPendingAgentPlanStep(batch,false);
@@ -13191,6 +13343,7 @@ function discardPendingAgentBatch(){
 }
 
 function stopPendingAgentPlan(){
+  if(agentSession450.busy){toast('正在保存，请稍候');return;}
   if(!state.editorAgent?.pendingBatch) return;
   state.editorAgent.pendingBatch = null;
   if(state.editorAgent.runState){
@@ -13208,6 +13361,7 @@ function stopPendingAgentPlan(){
 function rebuildPendingFinalTexts(batch){
   const texts = {};
   const changes = [];
+  const patches = [];
   const involved = Array.from(new Set(batch.patches.map(p => Number(p.chapter))));
   for(const ch of involved){
     const live = getChapterContent(ch) || '';
@@ -13233,49 +13387,38 @@ function rebuildPendingFinalTexts(batch){
     if(index < 0) return {ok:false,error:`第 ${patch.chapter} 章的第 ${batch.patches.indexOf(patch)+1} 处修改无法安全定位`};
     const next = current.slice(0,index) + patch.after + current.slice(index + patch.before.length);
     changes.push({chapter:Number(patch.chapter),before:current,after:next});
+    patches.push({...patch,start:index,beforeHash:chapterContentHash(current),afterHash:chapterContentHash(next),prefix:current.slice(Math.max(0,index-100),index),suffix:current.slice(index+patch.before.length,index+patch.before.length+100)});
     texts[patch.chapter] = next;
   }
-  return {ok:true,texts,changes};
+  return {ok:true,texts,changes,patches};
 }
 
-function applyPendingAgentBatch(silent, options = {}){
-  const batch = state.editorAgent?.pendingBatch;
-  if(!batch?.patches?.length) return false;
-  const selected = batch.patches.filter(p => p.selected !== false);
-  if(!selected.length){ toast('没有选中要应用的修改'); return false; }
-  const oversized = selected.find(patch => String(patch.after || '').length > AGENT_PATCH_TEXT_LIMIT);
-  if(oversized){ toast(`单处最终文本不能超过 ${AGENT_PATCH_TEXT_LIMIT} 字符`); return false; }
-  const rebuilt = rebuildPendingFinalTexts(batch);
-  if(!rebuilt.ok){ toast(rebuilt.error); return false; }
-  const involved = Array.from(new Set(selected.map(p => Number(p.chapter))));
-  for(const chapter of involved){
-    if(!agentCanEditChapter(chapter)){ toast(`第 ${chapter} 章当前未授权编辑`); return false; }
+async function applyPendingAgentBatch(silent, options = {}){
+  ensureEditorAgentState();
+  const batch=state.editorAgent.pendingBatch;
+  if(!batch?.patches?.length || agentSession450.busy) return false;
+  const selected=batch.patches.filter(p=>p.selected!==false);
+  if(!selected.length){toast('没有选中要应用的修改');return false;}
+  if(selected.some(p=>String(p.after||'').length>AGENT_PATCH_TEXT_LIMIT)){toast(`单处最终文本不能超过 ${AGENT_PATCH_TEXT_LIMIT} 字符`);return false;}
+  const rebuilt=rebuildPendingFinalTexts(batch);
+  if(!rebuilt.ok){toast(rebuilt.error);return false;}
+  const involved=[...new Set(selected.map(p=>Number(p.chapter)))];
+  if(involved.some(ch=>!agentCanEditChapter(ch))){toast('涉及未授权章节，本次没有应用');return false;}
+  const before=Object.fromEntries(involved.map(ch=>[ch,getChapterContent(ch)||'']));
+  const after=Object.fromEntries(involved.map(ch=>[ch,rebuilt.texts[ch]]));
+  const record={id:batch.id,instruction:batch.instruction,model:batch.model,createdAt:batch.createdAt,appliedAt:nowISO(),planStep:batch.planStep||null,status:'prepared',sequence:++agentSession450.sequence,patches:rebuilt.patches};
+  if(!await commitAgentText450(before,after,{kind:'apply',recordId:record.id,record})){
+    if(state.editorAgent.runState)state.editorAgent.runState.stage='paused';
+    renderEditorAgentRunStatus();return false;
   }
-  const snapshots = {};
-  involved.forEach(ch => {
-    snapshots[ch] = createChapterSnapshot(ch,'before agent edit',{content:getChapterContent(ch)||'',allowEmpty:true})?.id || null;
-  });
-  (rebuilt.changes || []).forEach(change => reconcileAgentFocusAfterEdit(change.chapter,change.before,change.after));
-  involved.forEach(ch => setChapterContent(ch,rebuilt.texts[ch]||'',{skipSanitize:true,reconcileFocus:false}));
-  selected.forEach(patch => addOperationLog({chapter:patch.chapter,type:'agent-edit',route:'editing',model:batch.model,beforeCount:countTextChars(patch.before),afterCount:countTextChars(patch.after),snapshotId:snapshots[patch.chapter],message:batch.instruction}));
-  const history = {...batch,patches:selected.map(p => ({...p,selected:undefined})),appliedAt:nowISO()};
-  delete history.finalTexts;
-  state.agentEditHistory = [history].concat(state.agentEditHistory||[]).slice(0,AGENT_HISTORY_LIMIT);
-  state.editorAgent.pendingBatch = null;
-  finishPendingAgentPlanStep(batch,true,options.continuePlan !== false);
-  if(!batch.planStep && state.editorAgent.runState) state.editorAgent.runState.stage = 'completed';
-  involved.forEach(ch => {
-    const body = document.querySelector(`#fullEditorPaper .full-editor-body[data-chapter="${ch}"]`);
-    if(body) body.textContent = getChapterContent(ch)||'';
-  });
-  renderEditorAgentFocusList();
-  renderAgentFocusHighlights();
-  updateFullEditorCount();
-  updateBadge();
-  saveState();
-  renderEditorAgentPending();
-  renderAgentHistory();
-  if(!silent) toast(`已应用 ${selected.length} 处修改`);
+  state.editorAgent.pendingBatch=null;
+  const stopped=state.editorAgent.runState?.stage==='stopped';
+  finishPendingAgentPlanStep(batch,true,options.continuePlan!==false && !agentSession450.error && !stopped);
+  if(!batch.planStep && state.editorAgent.runState) state.editorAgent.runState.stage='completed';
+  if(agentSession450.error && state.editorAgent.runState)state.editorAgent.runState.stage='paused';
+  if(stopped && state.editorAgent.runState)state.editorAgent.runState.stage='stopped';
+  await saveState();renderEditorAgentPending();renderEditorAgentRunStatus();renderAgentHistory();
+  if(!silent)toast(`已应用 ${selected.length} 处修改`);
   return true;
 }
 
@@ -13292,24 +13435,22 @@ function finishPendingAgentPlanStep(batch,applied,continuePlan=true){
   if(continuePlan) setTimeout(() => continueApprovedAgentPlan(),0);
 }
 
-function openAgentHistory(){
-  renderAgentHistory();
-  document.getElementById('agentHistoryOverlay')?.classList.add('show');
-}
+function openAgentHistory(){openAgentWorkspace450('history');}
 
-function closeAgentHistory(event){
-  if(event && event.target !== event.currentTarget) return;
-  document.getElementById('agentHistoryOverlay')?.classList.remove('show');
-}
+function closeAgentHistory(event){if(event&&event.target!==event.currentTarget)return;closeAgentWorkspace450();}
 
 function renderAgentHistory(){
-  const list = document.getElementById('agentHistoryList');
-  if(!list) return;
-  const history = (state.agentEditHistory || []).slice().sort((a,b)=>String(b.appliedAt||b.createdAt).localeCompare(String(a.appliedAt||a.createdAt)));
-  const count = document.getElementById('agentHistoryCount');
-  if(count) count.textContent = `最近 ${history.length} 次修改`;
-  if(!history.length){ list.innerHTML='<div class="agent-message system">还没有 Agent 修改记录。</div>'; return; }
-  list.innerHTML = history.map(batch => `<article class="agent-history-batch"><strong>${escapeHtml(batch.instruction || 'Agent 修改')}</strong><div class="agent-history-meta">${escapeHtml(new Date(batch.appliedAt||batch.createdAt).toLocaleString())} · ${escapeHtml(batch.model||'')}</div>${(batch.patches||[]).map(patch => `<div class="agent-patch"><div class="agent-patch-head"><span>第 ${patch.chapter} 章${patch.revertedAt ? ' · 已撤销' : ''}</span></div><div class="agent-patch-diff"><div class="agent-patch-old">- ${escapeHtml(patch.before || '（插入）')}</div><div class="agent-patch-new">+ ${escapeHtml(patch.after || '（删除）')}</div></div><div class="agent-history-actions"><button class="btn btn-sm" onclick="locateAgentPatch('${batch.id}','${patch.id}')">定位</button><button class="btn btn-sm" ${patch.revertedAt ? 'disabled' : ''} onclick="undoAgentPatch('${batch.id}','${patch.id}')">撤销本处</button></div></div>`).join('')}<div class="agent-history-actions"><button class="btn btn-sm" onclick="undoAgentBatch('${batch.id}')">撤销本次</button></div></article>`).join('');
+  ensureEditorAgentState();const list=document.getElementById('agentHistoryList');if(!list)return;
+  const history=state.agentEditHistory||[];
+  const count=document.getElementById('agentHistoryCount');if(count)count.textContent=`本次会话 ${history.length} 步修改`;
+  document.getElementById('agentSessionCount450').textContent=`本次会话 · ${history.length} 步修改`;
+  document.getElementById('agentSessionWarning450').textContent=agentSession450.error;
+  const visible=history.slice(0,agentWorkspace450.historyLimit);
+  list.innerHTML=visible.length?visible.map(batch=>`<article class="agent-history-batch450"><strong>${escapeHtml(batch.instruction||'Agent 修改')}</strong><div class="agent-history-meta">${escapeHtml(batch.planStep?.title||batch.planStep?.text||'直接修改')} · ${escapeHtml(new Date(batch.appliedAt||batch.createdAt).toLocaleString())} · ${escapeHtml(batch.model||'')}${batch.status==='prepared'?' · 提交状态待核对':''}</div>
+  ${(batch.patches||[]).map(patch=>`<details class="agent-history-patch450" open><summary>第 ${patch.chapter} 章 · ${escapeHtml(patch.tool||'修改')}${patch.revertedAt?' · 已撤销':''}</summary><div class="agent-history-text450"><div><span>修改前</span><pre>${escapeHtml(patch.before||'（空）')}</pre></div><div><span>修改后</span><pre>${escapeHtml(patch.after||'（空）')}</pre></div></div><div class="agent-history-actions"><button class="btn btn-sm" data-batch="${escapeHtml(batch.id)}" data-patch="${escapeHtml(patch.id)}" onclick="closeAgentWorkspace450();locateAgentPatch(this.dataset.batch,this.dataset.patch)">定位</button><button class="btn btn-sm" data-batch="${escapeHtml(batch.id)}" data-patch="${escapeHtml(patch.id)}" ${patch.revertedAt||batch.status!=='applied'?'disabled':''} onclick="undoAgentPatch(this.dataset.batch,this.dataset.patch)">撤销本处</button></div></details>`).join('')}
+  <div class="agent-history-actions"><button class="btn btn-sm" data-batch="${escapeHtml(batch.id)}" onclick="undoAgentBatch(this.dataset.batch)">撤销本步</button><button class="btn btn-sm" data-batch="${escapeHtml(batch.id)}" onclick="rewindAgentBefore450(this.dataset.batch)">回退到此步之前</button></div></article>`).join(''):'<div class="agent-workspace-empty450">本次会话还没有 Agent 修改记录</div>';
+  if(visible.length<history.length)list.insertAdjacentHTML('beforeend','<button class="btn" onclick="agentWorkspace450.historyLimit+=40;renderAgentHistory()">加载更多</button>');
+  renderAgentWorkspace450();
 }
 
 function findAgentHistoryPatch(batchId,patchId){
@@ -13351,48 +13492,29 @@ function locateAgentPatch(batchId,patchId){
 }
 
 function resolvePatchPositionForUndo(content,patch){
-  if(patch.after){
-    const exact=findUniqueText(content,patch.after);
-    if(exact.ok) return exact.index;
-    return -1;
+  if(chapterContentHash(content)===patch.afterHash && content.slice(patch.start,patch.start+patch.after.length)===patch.after) return patch.start;
+  let index=-1;
+  if(patch.after){const found=findUniqueText(content,patch.after);if(found.ok)index=found.index;}
+  else{
+    const left=String(patch.prefix||'').slice(-60),right=String(patch.suffix||'').slice(0,60);
+    const found=left+right?findUniqueText(content,left+right):{ok:false};if(found.ok)index=found.index+left.length;
   }
-  const left=String(patch.prefix||'').slice(-60);
-  const right=String(patch.suffix||'').slice(0,60);
-  const anchor=left+right;
-  const found=findUniqueText(content,anchor);
-  return found.ok ? found.index+left.length : -1;
+  if(index<0)return -1;
+  const prefix=String(patch.prefix||'').slice(-60),suffix=String(patch.suffix||'').slice(0,60);
+  if(prefix && content.slice(Math.max(0,index-prefix.length),index)!==prefix)return -1;
+  if(suffix && content.slice(index+patch.after.length,index+patch.after.length+suffix.length)!==suffix)return -1;
+  return index;
 }
 
-function undoAgentPatch(batchId,patchId,silent=false){
+async function undoAgentPatch(batchId,patchId,silent=false){
   const {batch,patch}=findAgentHistoryPatch(batchId,patchId);
-  if(!batch||!patch||patch.revertedAt) return false;
-  const content=getChapterContent(patch.chapter)||'';
-  const index=resolvePatchPositionForUndo(content,patch);
-  if(index<0){if(!silent)toast('无法安全定位该修改，正文可能已被手动改动');return false;}
-  createChapterSnapshot(patch.chapter,'before undo agent edit',{content,allowEmpty:true});
-  const next=content.slice(0,index)+patch.before+content.slice(index+patch.after.length);
-  setChapterContent(patch.chapter,next,{skipSanitize:false});
-  patch.revertedAt=nowISO();
-  addOperationLog({chapter:patch.chapter,type:'undo-agent-edit',route:'editing',beforeCount:countTextChars(content),afterCount:countTextChars(next),message:batch.instruction});
-  const body=document.querySelector(`#fullEditorPaper .full-editor-body[data-chapter="${patch.chapter}"]`);
-  if(body)body.textContent=next;
-  updateFullEditorCount();
-  saveState();
-  renderAgentHistory();
-  if(!silent)toast('已撤销本处修改');
-  return true;
+  if(!batch||!patch||patch.revertedAt)return false;
+  return revertAgentRecords450([batch],patchId);
 }
 
-function undoAgentBatch(batchId){
-  const batch=(state.agentEditHistory||[]).find(item=>item.id===batchId);
-  if(!batch)return;
-  let undone=0,conflicts=0;
-  [...(batch.patches||[])].reverse().forEach(patch=>{
-    if(patch.revertedAt)return;
-    if(undoAgentPatch(batchId,patch.id,true))undone++;else conflicts++;
-  });
-  renderAgentHistory();
-  toast(conflicts ? `已撤销 ${undone} 处，${conflicts} 处因正文变化未覆盖` : `已撤销本次 ${undone} 处修改`);
+async function undoAgentBatch(batchId){
+  const batch=state.agentEditHistory.find(item=>item.id===batchId);
+  return batch ? revertAgentRecords450([batch]) : false;
 }
 
 function updateBadge(){
@@ -13912,6 +14034,297 @@ function withFreeRevisionProtocol(messages){
   return result;
 }
 
+const agentSession450 = {key:null, records:[], journal:null, busy:false, error:'', sequence:0};
+
+function agentSessionKey450(){
+  if(!state.project.agentProjectId) state.project.agentProjectId = makeId('project');
+  return 'novelWriterAgentSession:v450:' + state.project.agentProjectId;
+}
+
+function loadAgentSession450(){
+  const key = agentSessionKey450();
+  if(agentSession450.key === key){ state.agentEditHistory = agentSession450.records; return; }
+  Object.assign(agentSession450,{key,records:[],journal:null,error:'',sequence:0});
+  try{
+    const saved = sessionStorage.getItem(key);
+    if(saved){
+      const data = cloneValidatedJson(JSON.parse(saved));
+      if(data.version !== 1 || !Array.isArray(data.records)) throw new Error('记录格式无效');
+      agentSession450.records = data.records;
+      agentSession450.journal = data.journal || null;
+      agentSession450.sequence = Number(data.sequence) || 0;
+    }
+    recoverAgentTransaction450();
+  }catch(error){ agentSession450.error = '临时修改记录无法恢复，请查看或清理记录后再修改。'; }
+  state.agentEditHistory = agentSession450.records;
+}
+
+function persistAgentSession450(){
+  sessionStorage.setItem(agentSession450.key,JSON.stringify({version:1,records:agentSession450.records,journal:agentSession450.journal,sequence:agentSession450.sequence}));
+}
+
+function completeAgentJournal450(applied){
+  const journal = agentSession450.journal;
+  if(!journal) return;
+  if(journal.kind === 'apply'){
+    const record = agentSession450.records.find(item=>item.id===journal.recordId);
+    if(applied && record){ record.status='applied';record.appliedAt=record.appliedAt||nowISO(); }
+    else agentSession450.records = agentSession450.records.filter(item=>item.id!==journal.recordId);
+  }else if(applied){
+    for(const mark of journal.marks || []){
+      const record=agentSession450.records.find(item=>item.id===mark.batchId);
+      const patch=record?.patches.find(item=>item.id===mark.patchId);
+      if(patch) patch.revertedAt=nowISO();
+    }
+  }
+  agentSession450.journal=null;
+  state.agentEditHistory=agentSession450.records;
+}
+
+function recoverAgentTransaction450(){
+  const journal=agentSession450.journal;
+  if(!journal) return;
+  const chapters=Object.keys(journal.before || {});
+  const matches=side=>chapters.length && chapters.every(ch=>chapterContentHash(getChapterContent(Number(ch))||'')===chapterContentHash(journal[side][ch]));
+  if(matches('after')) completeAgentJournal450(true);
+  else if(matches('before')) completeAgentJournal450(false);
+  else { agentSession450.error='上次提交与当前正文不一致，已保留恢复记录；未自动覆盖正文。';return; }
+  persistAgentSession450();
+}
+
+function setAgentCommitBusy450(busy){
+  agentSession450.busy=busy;
+  document.querySelectorAll('.full-editor-body').forEach(el=>el.setAttribute('contenteditable',busy?'false':'plaintext-only'));
+  const editor=document.getElementById('chapterEditor');if(editor) editor.readOnly=busy;
+  renderAgentWorkspace450();
+}
+
+function refreshAgentText450(chapters){
+  for(const chapter of chapters){
+    const body=document.querySelector(`#fullEditorPaper .full-editor-body[data-chapter="${chapter}"]`);
+    if(body) body.textContent=getChapterContent(chapter)||'';
+  }
+  renderEditorAgentFocusList();renderAgentFocusHighlights();updateFullEditorCount();updateBadge();
+}
+
+async function commitAgentText450(before,after,journal){
+  if(agentSession450.busy || agentSession450.error){ toast(agentSession450.error||'正在保存上一步修改');return false; }
+  if(Store.conflicted){ toast('存在其他页面的保存冲突，暂不能修改正文');return false; }
+  const chapters=Object.keys(before).map(Number);
+  for(const chapter of chapters){
+    if((getChapterContent(chapter)||'')!==before[chapter]){toast(`第 ${chapter} 章已变化，本次未修改`);return false;}
+  }
+  const priorRecords=structuredClone(agentSession450.records);
+  const oldFocus=structuredClone(state.editorAgent.focusExcerpts || []);
+  if(journal.record) agentSession450.records.unshift(journal.record);
+  agentSession450.journal={...journal,before,after};delete agentSession450.journal.record;
+  try{ persistAgentSession450(); }
+  catch(error){
+    agentSession450.records=priorRecords;agentSession450.journal=null;state.agentEditHistory=priorRecords;
+    toast('临时备份保存失败，正文未修改。请在修改记录中清理空间后重试。');return false;
+  }
+  setAgentCommitBusy450(true);
+  try{
+    for(const chapter of chapters) setChapterContent(chapter,after[chapter],{skipSanitize:true,allowEmpty:true});
+    if(await saveState() !== true) throw new Error('正文保存失败');
+    completeAgentJournal450(true);
+    try{persistAgentSession450();}catch(error){agentSession450.error='正文已保存，但记录收尾失败；刷新可核对恢复，已暂停后续修改。';}
+    refreshAgentText450(chapters);
+    return true;
+  }catch(error){
+    for(const chapter of chapters) setChapterContent(chapter,before[chapter],{skipSanitize:true,allowEmpty:true,reconcileFocus:false});
+    state.editorAgent.focusExcerpts=oldFocus;
+    Store.pendingPayload=null;
+    agentSession450.records=priorRecords;agentSession450.journal=null;state.agentEditHistory=priorRecords;
+    try{persistAgentSession450();}catch(storageError){agentSession450.error='恢复记录保存失败，请刷新核对后继续。';}
+    refreshAgentText450(chapters);
+    toast('正文保存失败，已恢复修改前内容；本次没有继续执行。');
+    return false;
+  }finally{setAgentCommitBusy450(false);}
+}
+
+async function revertAgentRecords450(records,onlyPatch){
+  ensureEditorAgentState();
+  if(agentSession450.busy || agentSession450.error){toast(agentSession450.error||'正在保存，请稍候');return false;}
+  if(state.generating || ['investigating','executing'].includes(state.editorAgent?.runState?.stage)){toast('请先停止正在进行的生成或 Agent 任务，再回退修改');return false;}
+  const before={},after={},marks=[];
+  for(const batch of records){
+    for(const patch of [...batch.patches].reverse()){
+      if(patch.revertedAt || (onlyPatch && patch.id!==onlyPatch))continue;
+      const chapter=Number(patch.chapter);
+      if(!agentCanEditChapter(chapter)){toast(`第 ${chapter} 章当前未授权编辑，本次回退没有执行`);return false;}
+      if(!Object.hasOwn(before,chapter))before[chapter]=after[chapter]=getChapterContent(chapter)||'';
+      const index=resolvePatchPositionForUndo(after[chapter],patch);
+      if(index<0){toast(`第 ${chapter} 章存在后续修改冲突，本次回退全部取消，正文未覆盖`);return false;}
+      after[chapter]=after[chapter].slice(0,index)+patch.before+after[chapter].slice(index+patch.after.length);
+      marks.push({batchId:batch.id,patchId:patch.id});
+    }
+  }
+  if(!marks.length){toast('这些修改已经撤销');return false;}
+  const ok=await commitAgentText450(before,after,{kind:'undo',marks});
+  if(ok){renderAgentHistory();toast(`已回退 ${marks.length} 处修改`);}
+  return ok;
+}
+
+async function rewindAgentBefore450(batchId){
+  const index=state.agentEditHistory.findIndex(item=>item.id===batchId);if(index<0)return;
+  const records=state.agentEditHistory.slice(0,index+1);
+  const active=records.filter(r=>r.patches.some(p=>!p.revertedAt));
+  const chapters=[...new Set(active.flatMap(r=>r.patches.filter(p=>!p.revertedAt).map(p=>p.chapter)))].sort((a,b)=>a-b);
+  if(!active.length){toast('没有需要回退的修改');return;}
+  const fingerprint=JSON.stringify(active);
+  if(!await confirmAgentRewind450(active,chapters))return;
+  const latestIndex=state.agentEditHistory.findIndex(item=>item.id===batchId);
+  const latest=state.agentEditHistory.slice(0,latestIndex+1).filter(r=>r.patches.some(p=>!p.revertedAt));
+  if(JSON.stringify(latest)!==fingerprint){toast('修改记录已经变化，请重新查看回退范围');return;}
+  await revertAgentRecords450(active);
+}
+
+function clearAgentSession450(){
+  if(agentSession450.busy){toast('正在保存，暂不能清理');return;}
+  if(!confirm('清空本项目在当前标签页的修改记录？正文保持不变，但这些 Agent 修改将不能再从记录中撤销。'))return;
+  try{sessionStorage.removeItem(agentSession450.key);}catch(error){toast('无法清理会话存储');return;}
+  agentSession450.records=[];agentSession450.journal=null;agentSession450.error='';state.agentEditHistory=[];renderAgentHistory();
+}
+
+function validateImportedOutline450(rows){
+  if(!Array.isArray(rows)||!rows.length||rows.length>1000)throw new Error('大纲必须包含 1 至 1000 章');
+  const seen=new Set();
+  const result=rows.map((row,index)=>{
+    if(!isPlainObject(row)||!Object.hasOwn(row,'chapter'))throw new Error(`第 ${index+1} 项缺少章号`);
+    const chapter=typeof row.chapter==='string' && /^\d+$/.test(row.chapter) ? Number(row.chapter) : row.chapter;
+    if(!Number.isInteger(chapter)||chapter<1||chapter>1000)throw new Error(`第 ${index+1} 项章号无效`);
+    if(seen.has(chapter))throw new Error(`章号 ${chapter} 重复`);seen.add(chapter);
+    if(typeof row.title!=='string'||!row.title.trim()||typeof row.summary!=='string'||!Array.isArray(row.plotPoints))throw new Error(`第 ${chapter} 章缺少标题、概要或剧情关键点`);
+    if(row.plotPoints.some(p=>typeof p!=='string' && !(isPlainObject(p)&&typeof p.desc==='string')))throw new Error(`第 ${chapter} 章剧情关键点格式无效`);
+    return normalizeOutlineChapterForAppend(structuredClone(row),chapter);
+  }).sort((a,b)=>a.chapter-b.chapter);
+  if(result.some((row,index)=>row.chapter!==index+1))throw new Error('章号必须从 1 开始连续排列，不能缺号');
+  return result;
+}
+
+const agentWorkspace450={open:false,tab:'chat',index:0,side:'after',focus:null,sidebarHome:null,historyHome:null,historyLimit:40};
+
+let agentRewindResolve450=null;
+
+function confirmAgentRewind450(records,chapters){
+  const overlay=document.getElementById('agentRewind450');
+  document.getElementById('agentRewindSummary450').textContent=`将逆序撤销 ${records.length} 步，涉及第 ${chapters.join('、')} 章。任何一处冲突都会取消整个回退。`;
+  document.getElementById('agentRewindList450').innerHTML=records.map(batch=>`<li><strong>${escapeHtml(batch.planStep?.title||batch.planStep?.text||batch.instruction||'Agent 修改')}</strong><div>${escapeHtml(batch.instruction||'')}</div><small>第 ${[...new Set(batch.patches.filter(p=>!p.revertedAt).map(p=>p.chapter))].join('、')} 章 · ${batch.patches.filter(p=>!p.revertedAt).length} 处修改</small></li>`).join('');
+  overlay.hidden=false;document.getElementById('agentRewindCancel450').focus();
+  return new Promise(resolve=>{agentRewindResolve450=resolve;});
+}
+
+function finishAgentRewind450(confirmed){
+  document.getElementById('agentRewind450').hidden=true;
+  const resolve=agentRewindResolve450;agentRewindResolve450=null;resolve?.(confirmed);
+  document.getElementById('agentWorkspaceTabHistory450').focus();
+}
+
+function openAgentWorkspace450(tab='chat',index=0){
+  ensureEditorAgentState();
+  const modal=document.getElementById('agentWorkspace450');
+  if(!agentWorkspace450.open){
+    agentWorkspace450.focus=document.activeElement;
+    for(const [id,slot,home] of [['editorAgentSidebar','agentWorkspaceChat450','sidebarHome'],['agentHistoryList','agentWorkspaceHistorySlot450','historyHome']]){
+      const node=document.getElementById(id),marker=document.createComment('agent-workspace-home');
+      node.before(marker);agentWorkspace450[home]=marker;document.getElementById(slot).append(node);
+    }
+    agentWorkspace450.open=true;modal.hidden=false;
+    document.body.dataset.agentWorkspaceOverflow=document.body.style.overflow;document.body.style.overflow='hidden';
+  }
+  agentWorkspace450.index=index;selectAgentWorkspaceTab450(tab);renderAgentHistory();
+  modal.querySelector('.agent-workspace-window450').focus();
+}
+
+function closeAgentWorkspace450(){
+  if(!agentWorkspace450.open)return;
+  if(agentRewindResolve450)finishAgentRewind450(false);
+  for(const [id,home] of [['editorAgentSidebar','sidebarHome'],['agentHistoryList','historyHome']]){
+    const marker=agentWorkspace450[home];marker?.replaceWith(document.getElementById(id));agentWorkspace450[home]=null;
+  }
+  agentWorkspace450.open=false;document.getElementById('agentWorkspace450').hidden=true;
+  document.body.style.overflow=document.body.dataset.agentWorkspaceOverflow||'';delete document.body.dataset.agentWorkspaceOverflow;
+  const focus=agentWorkspace450.focus?.isConnected?agentWorkspace450.focus:document.getElementById('agentWorkspaceExpand450');focus?.focus();
+  requestAnimationFrame(fitFullEditorViewport);
+}
+
+function selectAgentWorkspaceTab450(tab){
+  agentWorkspace450.tab=tab;
+  for(const name of ['chat','review','history']){
+    const suffix=name[0].toUpperCase()+name.slice(1);
+    document.getElementById('agentWorkspace'+suffix+'450').hidden=tab!==name;
+    document.getElementById('agentWorkspaceTab'+suffix+'450').setAttribute('aria-selected',String(tab===name));
+  }
+  renderAgentWorkspace450();
+}
+
+function renderAgentWorkspace450(){
+  if(!agentWorkspace450.open)return;
+  const batch=state.editorAgent?.pendingBatch;
+  const status=document.getElementById('editorAgentRunStatus')?.textContent||'待命';
+  document.getElementById('agentWorkspaceStatus450').textContent=agentSession450.busy?'正在保存':batch?'等待确认 · 正文尚未改动':status;
+  const running=['investigating','executing'].includes(state.editorAgent?.runState?.stage);
+  document.getElementById('agentWorkspaceStop450').disabled=!(running||agentSession450.busy||batch?.planStep);
+  const review=agentWorkspace450.tab==='review';if(!review)return;
+  const patches=batch?.patches||[];agentWorkspace450.index=Math.max(0,Math.min(agentWorkspace450.index,patches.length-1));
+  const patch=patches[agentWorkspace450.index],empty=!patch;
+  document.getElementById('agentReviewEmpty450').hidden=!empty;
+  document.getElementById('agentReviewColumns450').hidden=empty;
+  document.querySelector('#agentWorkspaceReview450 .agent-review-footer450').hidden=empty;
+  document.querySelector('#agentWorkspaceReview450 .agent-review-toolbar450').hidden=empty;
+  document.querySelector('#agentWorkspaceReview450 .agent-review-mobile-tabs450').hidden=empty;
+  if(empty)return;
+  document.getElementById('agentReviewPosition450').textContent=`第 ${patch.chapter} 章 · ${agentWorkspace450.index+1}/${patches.length}`;
+  document.getElementById('agentReviewBefore450').textContent=patch.before||'（此处为新增内容）';
+  const after=document.getElementById('agentReviewAfter450');
+  if(after.value!==patch.after)after.value=patch.after||'';
+  after.maxLength=AGENT_PATCH_TEXT_LIMIT;after.disabled=agentSession450.busy;
+  document.getElementById('agentReviewSelected450').checked=patch.selected!==false;
+  const font=state.editorAgent.reviewFontSize||16;
+  document.getElementById('agentReviewFont450').textContent=font+'px';
+  document.getElementById('agentReviewColumns450').style.setProperty('--review-font-size',font+'px');
+  document.getElementById('agentReviewNotice450').textContent=agentSession450.busy?'正在备份并保存修改':'正文尚未改动';
+  document.querySelectorAll('#agentWorkspaceReview450 .agent-review-footer450 button').forEach(button=>button.disabled=agentSession450.busy);
+  setAgentReviewSide450(agentWorkspace450.side);
+}
+
+function moveAgentReview450(delta){agentWorkspace450.index+=delta;renderAgentWorkspace450();}
+
+function setAgentReviewSide450(side){
+  agentWorkspace450.side=side;document.getElementById('agentReviewColumns450').dataset.side=side;
+  document.querySelectorAll('.agent-review-mobile-tabs450 button').forEach(button=>button.setAttribute('aria-selected',String(button.dataset.side===side)));
+}
+
+function changeAgentReviewFont450(delta){
+  state.editorAgent.reviewFontSize=Math.max(14,Math.min(24,(state.editorAgent.reviewFontSize||16)+delta));saveState();renderAgentWorkspace450();
+}
+
+function locatePendingAgent450(){
+  const patch=state.editorAgent?.pendingBatch?.patches[agentWorkspace450.index];if(!patch)return;
+  closeAgentWorkspace450();
+  const body=document.querySelector(`.full-editor-body[data-chapter="${patch.chapter}"]`);
+  if(body){body.scrollIntoView({block:'center'});body.animate([{backgroundColor:'var(--surface2)'},{backgroundColor:'transparent'}],{duration:1600});body.focus();}
+}
+
+document.addEventListener('keydown',event=>{
+  if(!agentWorkspace450.open)return;
+  if(agentRewindResolve450){
+    if(event.key==='Escape'){event.preventDefault();event.stopImmediatePropagation();finishAgentRewind450(false);}
+    if(event.key==='Tab'){
+      event.preventDefault();const buttons=[...document.querySelectorAll('#agentRewind450 button')];
+      const current=buttons.indexOf(document.activeElement);buttons[(current+(event.shiftKey?-1:1)+buttons.length)%buttons.length]?.focus();
+    }
+    return;
+  }
+  if(event.key==='Escape'){event.preventDefault();event.stopPropagation();closeAgentWorkspace450();return;}
+  if(event.key==='Tab'){
+    const elements=[...document.querySelectorAll('#agentWorkspace450 button,#agentWorkspace450 input,#agentWorkspace450 textarea,#agentWorkspace450 [tabindex="0"]')].filter(el=>!el.disabled&&el.getClientRects().length);
+    const first=elements[0],last=elements.at(-1);
+    if(event.shiftKey && (document.activeElement===first||!elements.includes(document.activeElement))){event.preventDefault();last?.focus();}
+    else if(!event.shiftKey && (document.activeElement===last||!elements.includes(document.activeElement))){event.preventDefault();first?.focus();}
+  }
+},true);
 </script>
 </body>
 </html>
