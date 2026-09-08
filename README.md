@@ -135,6 +135,8 @@ Model names, supported parameters, context limits, and data-retention policies d
 
 ## V4.5.0 · 改稿工作区与会话回退 / Revision Workspace and Session Undo
 
+热修复：Agent 展开按钮在大窗口中切换为“收起”，再次点击返回侧栏，保留草稿和待确认修改。Hotfix: the Agent expand button now becomes Collapse in the workspace and returns to the sidebar without losing drafts or pending edits.
+
 - **展开 Agent 工作区**：保留紧凑侧栏，也可在页面内打开“对话与计划 / 审阅修改 / 修改记录”。原文与成稿宽屏并排，窄屏切换；成稿可连续多段编辑，独立字号调节，操作按钮始终可达。
 - **临时修改记录**：每个实际应用的 Agent 补丁先备份、再保存正文，支持撤销本处、撤销本步，以及预览范围后回退到某步之前。批量回退先完整校验，冲突时全部取消，不覆盖后来的手工修改。
 - **会话生命周期**：记录按项目隔离保存在当前标签页的 sessionStorage，刷新保留，正常关闭标签页后清空；浏览器恢复标签页可能恢复会话。记录不包含在项目 JSON 或新的永久 Agent 快照中，存储不足时停止写入，不静默截断旧记录。其他功能的历史快照保持不变。
