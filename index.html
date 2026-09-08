@@ -1833,7 +1833,7 @@ body.debug-mode .debug-only{display:inline-flex!important}
           <button class="btn btn-sm agent-icon-btn" type="button" onclick="toggleEditorAgent()" title="展开或收起 Agent">◫</button>
           <div class="agent-head-title">AI Agent</div>
           <div class="agent-head-actions">
-<button id="agentWorkspaceExpand450" class="btn btn-sm icon-button450" type="button" onclick="openAgentWorkspace450()" title="展开 Agent 工作区" aria-label="展开 Agent 工作区"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 3h6v6"/><path d="m21 3-7 7"/><path d="m3 21 7-7"/><path d="M9 21H3v-6"/></svg></button>
+<button id="agentWorkspaceExpand450" class="btn btn-sm icon-button450" type="button" onclick="toggleAgentWorkspace450()" title="展开 Agent 工作区" aria-label="展开 Agent 工作区" aria-expanded="false" aria-controls="agentWorkspace450"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 3h6v6"/><path d="m21 3-7 7"/><path d="m3 21 7-7"/><path d="M9 21H3v-6"/></svg></button>
             <button class="btn btn-sm agent-icon-btn" type="button" onclick="openAgentHistory()" title="修改记录">↶</button>
             <button class="btn btn-sm agent-icon-btn" type="button" onclick="openAgentPermissions()" title="章节权限">⚙</button>
           </div>
@@ -14207,6 +14207,21 @@ const agentWorkspace450={open:false,tab:'chat',index:0,side:'after',focus:null,s
 
 let agentRewindResolve450=null;
 
+function toggleAgentWorkspace450(){
+  if(agentWorkspace450.open)closeAgentWorkspace450();
+  else openAgentWorkspace450();
+}
+
+function syncAgentWorkspaceToggle450(){
+  const button=document.getElementById('agentWorkspaceExpand450');
+  if(!button)return;
+  const open=agentWorkspace450.open;
+  button.innerHTML=open?'<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m14 10 7-7"/><path d="M20 10h-6V4"/><path d="m3 21 7-7"/><path d="M4 14h6v6"/></svg>':'<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 3h6v6"/><path d="m21 3-7 7"/><path d="m3 21 7-7"/><path d="M9 21H3v-6"/></svg>';
+  button.title=open?'收起 Agent 工作区':'展开 Agent 工作区';
+  button.setAttribute('aria-label',button.title);
+  button.setAttribute('aria-expanded',String(open));
+}
+
 function confirmAgentRewind450(records,chapters){
   const overlay=document.getElementById('agentRewind450');
   document.getElementById('agentRewindSummary450').textContent=`将逆序撤销 ${records.length} 步，涉及第 ${chapters.join('、')} 章。任何一处冲突都会取消整个回退。`;
@@ -14233,6 +14248,7 @@ function openAgentWorkspace450(tab='chat',index=0){
     agentWorkspace450.open=true;modal.hidden=false;
     document.body.dataset.agentWorkspaceOverflow=document.body.style.overflow;document.body.style.overflow='hidden';
   }
+  syncAgentWorkspaceToggle450();
   agentWorkspace450.index=index;selectAgentWorkspaceTab450(tab);renderAgentHistory();
   modal.querySelector('.agent-workspace-window450').focus();
 }
@@ -14244,6 +14260,7 @@ function closeAgentWorkspace450(){
     const marker=agentWorkspace450[home];marker?.replaceWith(document.getElementById(id));agentWorkspace450[home]=null;
   }
   agentWorkspace450.open=false;document.getElementById('agentWorkspace450').hidden=true;
+  syncAgentWorkspaceToggle450();
   document.body.style.overflow=document.body.dataset.agentWorkspaceOverflow||'';delete document.body.dataset.agentWorkspaceOverflow;
   const focus=agentWorkspace450.focus?.isConnected?agentWorkspace450.focus:document.getElementById('agentWorkspaceExpand450');focus?.focus();
   requestAnimationFrame(fitFullEditorViewport);
