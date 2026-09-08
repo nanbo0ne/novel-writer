@@ -1,15 +1,15 @@
-# 长篇小说写作助手 V4.4.9
+# 长篇小说写作助手 V4.5.0
 
 <div align="center">
 
 **Long-form Novel Writing Assistant**
 
-[![Version](https://img.shields.io/badge/version-4.4.9-b8860b)](./novel-writer-V4.4.9.html)
+[![Version](https://img.shields.io/badge/version-4.5.0-b8860b)](./novel-writer-V4.5.0.html)
 [![Single File](https://img.shields.io/badge/app-single--file_HTML-2f855a)](./index.html)
 [![Local First](https://img.shields.io/badge/data-local--first-2563eb)](#数据与隐私)
 [![GitHub Pages](https://img.shields.io/badge/demo-GitHub_Pages-181717)](https://nanbo0ne.github.io/novel-writer/)
 
-[在线使用](https://nanbo0ne.github.io/novel-writer/) · [下载独立版](./novel-writer-V4.4.9.html) · [English](#english)
+[在线使用](https://nanbo0ne.github.io/novel-writer/) · [下载独立版](./novel-writer-V4.5.0.html) · [English](#english)
 
 </div>
 
@@ -19,7 +19,7 @@
 
 长篇小说写作助手是一款本地优先的单文件 HTML 创作工具。它把项目设定、大纲、分章正文、长期记忆、审稿修改、全文编辑 Agent 和多格式导出集中在一个浏览器页面中，适合持续创作中长篇与超长篇小说。
 
-V4.4.9 是干净的单模式公开版：只保留原始普通写作模式和默认视觉主题，不包含加密载荷，也没有隐藏的替代模式或主题。源码与应用都在同一个 HTML 文件里，可直接阅读、下载和离线运行。本版重点加强多页面保存冲突、任务模型供应商绑定、连接检测、导入安全、流式超时和长期记忆增量合并。
+V4.5.0 是单模式公开版：只保留原始普通写作模式和默认视觉主题，不包含加密载荷，也没有隐藏的替代模式或主题。源码与应用都在同一个 HTML 文件里，可直接阅读、下载和离线运行。本版新增可展开的 Agent 改稿工作区、按项目隔离的会话回退记录，并修复大纲导入、空会话恢复、原样正文备份和专家建议采用状态。
 
 ## 核心能力
 
@@ -40,7 +40,7 @@ V4.4.9 是干净的单模式公开版：只保留原始普通写作模式和默�
 
 ## 快速开始
 
-1. 打开[在线版本](https://nanbo0ne.github.io/novel-writer/)，或下载 `novel-writer-V4.4.9.html` 后用浏览器打开。
+1. 打开[在线版本](https://nanbo0ne.github.io/novel-writer/)，或下载 `novel-writer-V4.5.0.html` 后用浏览器打开。
 2. 在“设置”中填写 OpenAI 兼容 API 地址、API Key 和模型名称。
 3. 填写书名、类型、世界观、人物设定、章节数和每章目标字数。
 4. 生成或导入大纲，然后进入“写作”逐章创作。
@@ -57,17 +57,18 @@ API 服务商对模型名称、参数、上下文长度和数据保留政策的�
 ## 数据与隐私
 
 - 项目、章节、对话、记忆和设置默认保存在当前浏览器的 IndexedDB 中。
+- Agent 临时修改记录单独保存在当前标签页的 sessionStorage：刷新保留，正常关闭后清空；不随项目 JSON 导出，浏览器恢复标签页时可能恢复这些记录。旧永久 Agent 历史不混入，也不主动删除。
 - API Key 保存在浏览器本地，不会被上传到本仓库。
 - 只有执行 AI 功能时，对应上下文才会发送到你配置的 API 服务商。
 - 更换浏览器、清理网站数据或使用无痕模式可能导致本地项目不可用，请定期导出 JSON 备份。
-- V4.4.9 会忽略旧版不兼容的模式数据，不显示或执行它们，也不会主动删除原有本地记录。
+- V4.5.0 会忽略旧版不兼容的模式数据，不显示或执行它们，也不会主动删除原有本地记录。
 
 ## 文件
 
 | 文件 | 用途 |
 | --- | --- |
 | `index.html` | GitHub Pages 入口 |
-| `novel-writer-V4.4.9.html` | 可下载、可离线打开的独立版本 |
+| `novel-writer-V4.5.0.html` | 可下载、可离线打开的独立版本 |
 | `docs/screenshot.png` | README 界面预览 |
 
 ## 作者
@@ -82,7 +83,7 @@ API 服务商对模型名称、参数、上下文长度和数据保留政策的�
 
 Long-form Novel Writing Assistant is a local-first, single-file HTML workspace for planning, drafting, revising, and exporting long-form fiction. Project settings, outlines, chapter drafts, continuity memory, review tools, a full-manuscript editing agent, and exports all live in one browser application.
 
-V4.4.9 is the clean public single-mode edition. It contains only the original writing mode and the default visual theme. There is no encrypted payload and no hidden alternative mode or theme. This release strengthens multi-tab conflict handling, provider-bound model routing, connection checks, import validation, streaming timeouts, and non-destructive memory updates.
+V4.5.0 is the public single-mode edition. It contains only the original writing mode and the default visual theme, without encrypted payloads or hidden alternative modes. This release adds an expandable Agent revision workspace and project-isolated session undo, and fixes outline import validation, empty chat recovery, exact manuscript backups and expert suggestion adoption status.
 
 ## Highlights
 
@@ -103,7 +104,7 @@ V4.4.9 is the clean public single-mode edition. It contains only the original wr
 
 ## Quick Start
 
-1. Open the [live application](https://nanbo0ne.github.io/novel-writer/) or download `novel-writer-V4.4.9.html`.
+1. Open the [live application](https://nanbo0ne.github.io/novel-writer/) or download `novel-writer-V4.5.0.html`.
 2. Open Settings and enter an OpenAI-compatible Base URL, API key, and model name.
 3. Define the title, genre, world, cast, chapter count, and target chapter length.
 4. Generate or import an outline, then draft chapters in the Writing view.
@@ -124,12 +125,28 @@ Model names, supported parameters, context limits, and data-retention policies d
 - Factory reset removes only this application data for the current page origin and requires two confirmations.
 - Context is sent only when you invoke an AI-powered action, and only to the API endpoint you configured.
 - Clearing site data, switching browsers, or using private browsing can make local projects unavailable. Export JSON backups regularly.
-- V4.4.9 ignores incompatible legacy mode data without displaying, executing, or actively deleting the original local records.
+- V4.5.0 ignores incompatible legacy mode data without displaying, executing, or actively deleting the original local records.
 
 ## Author
 
 伯劳 (Bolao)
 
+
+
+## V4.5.0 · 改稿工作区与会话回退 / Revision Workspace and Session Undo
+
+- **展开 Agent 工作区**：保留紧凑侧栏，也可在页面内打开“对话与计划 / 审阅修改 / 修改记录”。原文与成稿宽屏并排，窄屏切换；成稿可连续多段编辑，独立字号调节，操作按钮始终可达。
+- **临时修改记录**：每个实际应用的 Agent 补丁先备份、再保存正文，支持撤销本处、撤销本步，以及预览范围后回退到某步之前。批量回退先完整校验，冲突时全部取消，不覆盖后来的手工修改。
+- **会话生命周期**：记录按项目隔离保存在当前标签页的 sessionStorage，刷新保留，正常关闭标签页后清空；浏览器恢复标签页可能恢复会话。记录不包含在项目 JSON 或新的永久 Agent 快照中，存储不足时停止写入，不静默截断旧记录。其他功能的历史快照保持不变。
+- **数据与流程修复**：大纲导入拒绝重复、缺号和非法章号；空对话项目自动恢复可用会话；JSON 备份保留正文原始空行和空格；专家建议只在真正采用后标记“已应用”。直接修改模式继续保留，不增加强制范围审批。
+
+The expandable in-page Agent workspace shares the same conversation, plan and draft with the sidebar. Review original and final text side by side, or switch views on narrow screens. Large editable text areas, independent type sizing and fixed actions make long revisions easier to review.
+
+Every applied Agent patch is backed up before the manuscript is committed. Undo a patch or step, or preview and rewind multiple steps atomically. A manual-edit conflict cancels the entire rollback. Records live in per-project **sessionStorage**: refresh preserves them; closing the tab normally clears them, while browser session restoration may restore them. They are not exported in project JSON or stored as new permanent Agent snapshots. Full storage blocks the edit instead of silently discarding older records. Existing snapshots from other workflows are unchanged.
+
+This release also validates imported outline numbering, restores an empty chat session, preserves exact manuscript whitespace in JSON backups, and only marks expert suggestions as applied after adoption. Direct editing remains available without mandatory scope approval.
+
+![Agent 展开审阅工作区 / Expanded revision workspace](docs/agent-workspace.png)
 
 ## V4.4.9 · 自由篇幅与参考前文 / Flexible Length and Prior Story
 
@@ -142,4 +159,3 @@ Leave chapter count or target words blank to let the model choose the scope natu
 在大纲页点击“AI 修改大纲”，发送完整大纲和修改意见，逐章对比新版后统一采用或取消。可请求增减章节、调整每章目标字数；采用时同步项目设置。已有正文和注意事项按原编号保留，移出大纲的正文仍可从全文编辑及导出访问。
 
 Use **AI 修改大纲** on the outline page to revise the entire outline with one instruction. Review old/new chapters and setting changes before accepting. Chapter count and target words per chapter update together; existing manuscript text and notes remain attached to their original chapter numbers. Removed outline chapters retain their text in the full editor and exports.
-
